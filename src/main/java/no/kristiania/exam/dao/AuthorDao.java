@@ -1,7 +1,6 @@
 package no.kristiania.exam.dao;
 
 import no.kristiania.exam.Objects.Author;
-import no.kristiania.exam.Objects.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;

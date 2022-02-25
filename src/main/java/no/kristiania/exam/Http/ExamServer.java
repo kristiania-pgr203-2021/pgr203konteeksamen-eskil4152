@@ -25,7 +25,7 @@ public class ExamServer {
         AuthorDao authorDao = new AuthorDao(dataSource);
         BookDao bookDao = new BookDao(dataSource);
 
-        httpServer.addController("/api/books", new AddBookController(bookDao));
+        httpServer.addController("/api/books", new AddBookController(bookDao, authorDao));
         httpServer.addController("/api/getBooks", new GetBooksController(bookDao));
         httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
         httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));

@@ -72,15 +72,13 @@ public class BookDao extends AbstractDao<Book>{
     public void save (Book book) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);" /*+
-                            "insert into authors (author_books) values (?)"*/,
+                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);",
                     Statement.RETURN_GENERATED_KEYS
             )) {
                 statement.setString(1, book.getBookName());
                 statement.setString(2, book.getBookGenre());
                 statement.setString(3, book.getBookDesc());
-                statement.setString(4, String.valueOf(book.getBook_authors()));
-                //statement.setString(4, book.getBook_name());
+                statement.setString(4, book.getBook_authors());
 
                 statement.executeUpdate();
 
@@ -88,6 +86,12 @@ public class BookDao extends AbstractDao<Book>{
                     resultSet.next();
                     book.setId(resultSet.getLong("book_id"));
                 }
+            }
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "update authors set author_books = (?) where author_name = (?)"
+            )){
+                statement.setString(1, book.getBookName());
+                statement.setString(2, book.getBook_authors());
             }
         }
     }

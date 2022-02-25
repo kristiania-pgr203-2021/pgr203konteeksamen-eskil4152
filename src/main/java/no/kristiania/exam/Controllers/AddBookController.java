@@ -1,6 +1,7 @@
 package no.kristiania.exam.Controllers;
 
 import no.kristiania.exam.Http.HttpMessage;
+import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
 import no.kristiania.exam.Objects.Book;
 
@@ -12,9 +13,11 @@ import java.util.Map;
 
 public class AddBookController implements HttpControllerInterface {
     private final BookDao bookDao;
+    private final AuthorDao authorDao;
 
-    public AddBookController(BookDao bookDao) {
+    public AddBookController(BookDao bookDao, AuthorDao authorDao) {
         this.bookDao = bookDao;
+        this.authorDao = authorDao;
     }
 
     @Override
@@ -22,9 +25,19 @@ public class AddBookController implements HttpControllerInterface {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Book book = new Book();
 
+        String author = queryMap.get("authorId");
+        String authorString = "";
+
+        for (int i = 0; i < authorDao.listAll().size(); i++) {
+            if (i == Integer.parseInt(author)){
+                authorString = String.valueOf((authorDao.listAll().get(i)));
+            }
+        }
+
+        book.setBook_authors(URLDecoder.decode(authorString.toString(), StandardCharsets.UTF_8.name()));
+
         book.setBookName(URLDecoder.decode(queryMap.get("title"), StandardCharsets.UTF_8.name()));
         book.setBookDesc(URLDecoder.decode(queryMap.get("description"), StandardCharsets.UTF_8.name()));
-        book.setBook_authors(URLDecoder.decode(queryMap.get("authorId"), StandardCharsets.UTF_8.name()));
         book.setBookGenre(URLDecoder.decode(queryMap.get("bookGenre"), StandardCharsets.UTF_8.name()));
 
         bookDao.save(book);
