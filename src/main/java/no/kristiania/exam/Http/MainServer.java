@@ -13,7 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
-public class ExamServer {
+public class MainServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
     private static DataSource dataSource;
