@@ -30,15 +30,10 @@ public class ExamServer {
         httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
         httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));
 
+        httpServer.addController("/api/authors", new GetAuthorsController(authorDao));
+        httpServer.addController("/api/createAuthor", new AddAuthorController(authorDao));
         httpServer.addController("/api/authorSelect", new AuthorSelectController(authorDao));
         httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
-        /*httpServer.addController("/api/listQuestions", new ListQuestionsController(questionDao));
-        httpServer.addController("/api/questionSelect", new QuestionSelectController(questionDao));
-        httpServer.addController("/api/answer", new AnswerQuestionController(answerDao, questionDao));
-        httpServer.addController("/api/newQuestion", new NewQuestionController(questionDao));
-        httpServer.addController("/api/viewAnswers", new ViewAnswersController(answerDao));
-        httpServer.addController("/api/alterQuestion", new AlterQuestionController(questionDao));
-        httpServer.addController("/api/cookieAPI", new CookieCrumbController(userDao));*/
 
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
