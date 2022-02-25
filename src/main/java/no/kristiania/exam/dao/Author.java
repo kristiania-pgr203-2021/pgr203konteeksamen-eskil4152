@@ -1,4 +1,4 @@
-package no.kristiania.exam.Objects;
+package no.kristiania.exam.dao;
 
 import java.util.List;
 
