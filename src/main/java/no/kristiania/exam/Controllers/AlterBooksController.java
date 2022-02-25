@@ -27,15 +27,15 @@ public class AlterBooksController implements HttpControllerInterface {
 
         for (int i = 0; i < bookDao.listBooks().size(); i++) {
             if (i == Integer.parseInt(title)){
-                titleToString = String.valueOf(bookDao.listBooks().get(i));
+                titleToString = String.valueOf((bookDao.listBooks().get(i)));
             }
         }
 
-        book.setBook_name(URLDecoder.decode(titleToString, StandardCharsets.UTF_8.name()));
+        book.setBookName(URLDecoder.decode(titleToString.toString(), StandardCharsets.UTF_8.name()));
 
-        book.setNew_name(URLDecoder.decode(queryMap.get("newBookTitle"), StandardCharsets.UTF_8.name()));
-        book.setNew_desc(URLDecoder.decode(queryMap.get("newBookDescription"), StandardCharsets.UTF_8.name()));
-        book.setNew_author(URLDecoder.decode(queryMap.get("newBookAuthor"), StandardCharsets.UTF_8.name()));
+        book.setNewName(URLDecoder.decode(queryMap.get("newBookTitle"), StandardCharsets.UTF_8.name()));
+        book.setNewDesc(URLDecoder.decode(queryMap.get("newBookDescription"), StandardCharsets.UTF_8.name()));
+        book.setNewAuthor(URLDecoder.decode(queryMap.get("newBookAuthor"), StandardCharsets.UTF_8.name()));
 
         bookDao.alter(book);
 

@@ -1,6 +1,5 @@
 package no.kristiania.exam.Objects;
 
-import no.kristiania.exam.Http.Datasource;
 import no.kristiania.exam.dao.Book;
 
 import javax.sql.DataSource;
@@ -38,8 +37,8 @@ public class BookDao {
                             "insert into authors (author_books) values (?)"*/,
                     Statement.RETURN_GENERATED_KEYS
             )) {
-                statement.setString(1, book.getBook_name());
-                statement.setString(2, book.getBook_desc());
+                statement.setString(1, book.getBookName());
+                statement.setString(2, book.getBookDesc());
                 statement.setString(3, String.valueOf(book.getBook_authors()));
                 //statement.setString(4, book.getBook_name());
 
@@ -56,8 +55,8 @@ public class BookDao {
     private Book readResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setId(rs.getLong("id"));
-        book.setBook_name(rs.getString("book_name"));
-        book.setBook_desc(rs.getString("book_description"));
+        book.setBookName(rs.getString("book_name"));
+        book.setBookDesc(rs.getString("book_description"));
         book.setBook_authors(rs.getString("book_author"));
         return book;
     }
@@ -69,12 +68,12 @@ public class BookDao {
                             "UPDATE books set book_description = (?) where book_name = (?); " +
                             "UPDATE books set book_author = (?) where book_name = (?)"
             )) {
-                statement.setString(1, book.getNew_name());
-                statement.setString(2, book.getBook_name());
-                statement.setString(3, book.getNew_desc());
-                statement.setString(4, book.getNew_name());
-                statement.setString(5, book.getNew_author());
-                statement.setString(6, book.getNew_name());
+                statement.setString(1, book.getNewName());
+                statement.setString(2, book.getBookName());
+                statement.setString(3, book.getNewDesc());
+                statement.setString(4, book.getNewName());
+                statement.setString(5, book.getNewAuthor());
+                statement.setString(6, book.getNewName());
 
                 statement.executeUpdate();
             }

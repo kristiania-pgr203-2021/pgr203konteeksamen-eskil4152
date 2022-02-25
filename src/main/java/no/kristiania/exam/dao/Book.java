@@ -1,43 +1,33 @@
 package no.kristiania.exam.dao;
 
-import java.util.List;
-
 public class Book {
     private long id;
-    private String book_name;
-    private String book_desc;
-    private String new_name;
-    private String new_desc;
-    private String new_author;
+    private String bookName;
+    private String bookDesc;
+    private String newName;
+    private String newDesc;
 
     @Override
     public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", book_name='" + book_name + '\'' +
-                ", book_desc='" + book_desc + '\'' +
-                ", new_name='" + new_name + '\'' +
-                ", new_desc='" + new_desc + '\'' +
-                ", new_author='" + new_author + '\'' +
-                ", book_authors='" + book_authors + '\'' +
-                '}';
+        return bookName;
     }
 
+    private String newAuthor;
 
-    public String getNew_name() {
-        return new_name;
+    public String getNewName() {
+        return newName;
     }
 
-    public void setNew_name(String new_name) {
-        this.new_name = new_name;
+    public void setNewName(String newName) {
+        this.newName = newName;
     }
 
-    public String getNew_desc() {
-        return new_desc;
+    public String getNewDesc() {
+        return newDesc;
     }
 
-    public void setNew_desc(String new_desc) {
-        this.new_desc = new_desc;
+    public void setNewDesc(String newDesc) {
+        this.newDesc = newDesc;
     }
 
     public long getId() {
@@ -58,27 +48,27 @@ public class Book {
 
     private String book_authors;
 
-    public String getBook_name() {
-        return book_name;
+    public String getBookName() {
+        return bookName;
     }
 
-    public void setBook_name(String book_name) {
-        this.book_name = book_name;
+    public void setBookName(String bookName) {
+        this.bookName = bookName;
     }
 
-    public String getBook_desc() {
-        return book_desc;
+    public String getBookDesc() {
+        return bookDesc;
     }
 
-    public void setBook_desc(String book_desc) {
-        this.book_desc = book_desc;
+    public void setBookDesc(String bookDesc) {
+        this.bookDesc = bookDesc;
     }
 
-    public String getNew_author() {
-        return new_author;
+    public String getNewAuthor() {
+        return newAuthor;
     }
 
-    public void setNew_author(String new_author) {
-        this.new_author = new_author;
+    public void setNewAuthor(String newAuthor) {
+        this.newAuthor = newAuthor;
     }
 }

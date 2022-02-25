@@ -22,7 +22,7 @@ public class BooksSelectController implements HttpControllerInterface{
         int value = 0;
         for (Book book :
                 bookDao.listBooks()) {
-            res.append("<option value=" + (value++) + ">" + book.getBook_name() + "</option>");
+            res.append("<option value=" + (value++) + ">" + book.getBookName() + "</option>");
         }
         return new HttpMessage("HTTP/1.1 200 OK", res.toString());
     }
