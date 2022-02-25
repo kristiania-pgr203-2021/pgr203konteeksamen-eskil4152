@@ -3,6 +3,43 @@ package no.kristiania.exam.dao;
 import java.util.List;
 
 public class Book {
+    private long id;
+    private String book_name;
+    private String book_desc;
+    private String new_name;
+    private String new_desc;
+    private String new_author;
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", book_name='" + book_name + '\'' +
+                ", book_desc='" + book_desc + '\'' +
+                ", new_name='" + new_name + '\'' +
+                ", new_desc='" + new_desc + '\'' +
+                ", new_author='" + new_author + '\'' +
+                ", book_authors='" + book_authors + '\'' +
+                '}';
+    }
+
+
+    public String getNew_name() {
+        return new_name;
+    }
+
+    public void setNew_name(String new_name) {
+        this.new_name = new_name;
+    }
+
+    public String getNew_desc() {
+        return new_desc;
+    }
+
+    public void setNew_desc(String new_desc) {
+        this.new_desc = new_desc;
+    }
+
     public long getId() {
         return id;
     }
@@ -10,10 +47,6 @@ public class Book {
     public void setId(long id) {
         this.id = id;
     }
-
-    private long id;
-    private String book_name;
-    private String book_desc;
 
     public String getBook_authors() {
         return book_authors;
@@ -39,5 +72,13 @@ public class Book {
 
     public void setBook_desc(String book_desc) {
         this.book_desc = book_desc;
+    }
+
+    public String getNew_author() {
+        return new_author;
+    }
+
+    public void setNew_author(String new_author) {
+        this.new_author = new_author;
     }
 }

@@ -61,4 +61,23 @@ public class BookDao {
         book.setBook_authors(rs.getString("book_author"));
         return book;
     }
+
+    public void alter(Book book) throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE books set book_name = (?) where book_name = (?);" +
+                            "UPDATE books set book_description = (?) where book_name = (?); " +
+                            "UPDATE books set book_author = (?) where book_name = (?)"
+            )) {
+                statement.setString(1, book.getNew_name());
+                statement.setString(2, book.getBook_name());
+                statement.setString(3, book.getNew_desc());
+                statement.setString(4, book.getNew_name());
+                statement.setString(5, book.getNew_author());
+                statement.setString(6, book.getNew_name());
+
+                statement.executeUpdate();
+            }
+        }
+    }
 }

@@ -1,6 +1,8 @@
 package no.kristiania.exam.Http;
 
 import no.kristiania.exam.Controllers.AddBookController;
+import no.kristiania.exam.Controllers.AlterBooksController;
+import no.kristiania.exam.Controllers.BooksSelectController;
 import no.kristiania.exam.Controllers.GetBooksController;
 import no.kristiania.exam.Objects.BookDao;
 import org.slf4j.Logger;
@@ -21,6 +23,8 @@ public class ExamServer {
 
         httpServer.addController("/api/books", new AddBookController(bookDao));
         httpServer.addController("/api/getBooks", new GetBooksController(bookDao));
+        httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
+        httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));
         /*httpServer.addController("/api/listQuestions", new ListQuestionsController(questionDao));
         httpServer.addController("/api/questionSelect", new QuestionSelectController(questionDao));
         httpServer.addController("/api/answer", new AnswerQuestionController(answerDao, questionDao));
