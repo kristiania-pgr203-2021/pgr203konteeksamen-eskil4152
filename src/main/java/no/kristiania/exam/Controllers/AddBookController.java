@@ -1,8 +1,8 @@
 package no.kristiania.exam.Controllers;
 
 import no.kristiania.exam.Http.HttpMessage;
-import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.Objects.BookDao;
+import no.kristiania.exam.dao.Book;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

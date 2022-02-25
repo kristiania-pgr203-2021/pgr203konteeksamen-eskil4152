@@ -1,6 +1,7 @@
 package no.kristiania.exam.Objects;
 
 import no.kristiania.exam.Http.Datasource;
+import no.kristiania.exam.dao.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;
