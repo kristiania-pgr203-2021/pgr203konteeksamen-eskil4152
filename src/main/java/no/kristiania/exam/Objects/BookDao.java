@@ -34,7 +34,7 @@ public class BookDao {
     public void save (Book book) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "insert into books (book_name, book_description, book_authors) VALUES (?, ?, ?);" /*+
+                    "insert into books (book_name, book_description, book_author) VALUES (?, ?, ?);" /*+
                             "insert into authors (author_books) values (?)"*/,
                     Statement.RETURN_GENERATED_KEYS
             )) {
