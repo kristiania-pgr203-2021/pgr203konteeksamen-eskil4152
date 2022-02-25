@@ -9,7 +9,6 @@ import java.util.List;
 
 public class BookDao extends AbstractDao<Book>{
 
-    private final String saveBook = "insert into books (book_id, book_name, book_lastname, book_genre, book_description) values (?, ?, ?, ?, ?)";
     private final String retrieveByBookName = "select * from books where book_name = ?";
     private final String retrieveAllB = "select * from books";
     private final String updateBook = "update books set book_name = ?, book_genre = ?, book_description = ?, book_author = ? where book_id = ?";
@@ -72,33 +71,23 @@ public class BookDao extends AbstractDao<Book>{
     public void save (Book book) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);",
-                    Statement.RETURN_GENERATED_KEYS
+                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);" +
+                            "update authors set author_books = (?) where author_name = (?)"
             )) {
                 statement.setString(1, book.getBookName());
                 statement.setString(2, book.getBookGenre());
                 statement.setString(3, book.getBookDesc());
                 statement.setString(4, book.getBook_authors());
+                statement.setString(5, book.getBookName());
+                statement.setString(6, book.getBook_authors());
 
-                statement.executeUpdate();
-
-                try (ResultSet resultSet = statement.getGeneratedKeys()){
-                    resultSet.next();
-                    book.setId(resultSet.getLong("book_id"));
-                }
-            }
-            try (PreparedStatement statement = connection.prepareStatement(
-                    "update authors set author_books = (?) where author_name = (?)"
-            )){
-                statement.setString(1, book.getBookName());
-                statement.setString(2, book.getBook_authors());
+                statement.execute();
             }
         }
     }
 
     private Book readResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
-        book.setId(rs.getLong("book_id"));
         book.setBookName(rs.getString("book_name"));
         book.setBookGenre(rs.getString("book_genre"));
         book.setBookDesc(rs.getString("book_description"));
