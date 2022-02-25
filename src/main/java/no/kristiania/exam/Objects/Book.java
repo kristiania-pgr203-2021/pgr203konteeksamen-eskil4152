@@ -14,16 +14,16 @@ public class Book {
     private long id;
     private String book_name;
     private String book_desc;
-    private List<Author> book_authors;
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "book_name='" + book_name + '\'' +
-                ", book_desc='" + book_desc + '\'' +
-                ", book_authors=" + book_authors +
-                '}';
+    public String getBook_authors() {
+        return book_authors;
     }
+
+    public void setBook_authors(String book_authors) {
+        this.book_authors = book_authors;
+    }
+
+    private String book_authors;
 
     public String getBook_name() {
         return book_name;
@@ -39,13 +39,5 @@ public class Book {
 
     public void setBook_desc(String book_desc) {
         this.book_desc = book_desc;
-    }
-
-    public List<Author> getBook_authors() {
-        return book_authors;
-    }
-
-    public void setBook_authors(List<Author> book_authors) {
-        this.book_authors = book_authors;
     }
 }

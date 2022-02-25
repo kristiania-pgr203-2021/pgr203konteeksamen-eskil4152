@@ -6,17 +6,16 @@ public class Author {
     private String first_name;
     private String last_name;
     private int age;
-    private List<Book> books;
 
-    @Override
-    public String toString() {
-        return "Author{" +
-                "first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
-                ", age=" + age +
-                ", books=" + books +
-                '}';
+    public String getBooks() {
+        return books;
     }
+
+    public void setBooks(String books) {
+        this.books = books;
+    }
+
+    private String books;
 
     public String getFirst_name() {
         return first_name;
@@ -40,13 +39,5 @@ public class Author {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
     }
 }
