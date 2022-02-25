@@ -1,15 +1,17 @@
 package no.kristiania.exam.dao;
 
 import no.kristiania.exam.Objects.Author;
+import no.kristiania.exam.Objects.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AuthorDao extends AbstractDao<Author>{
 
-    private final String saveAuthor = "insert into authors (author_name, author_age, author_books) values (?, ?, ?)";
+    private final String saveAuthor = "insert into authors (author_name, author_age) values (?, ?)";
     private final String retrieveByAuthorId = "select * from authors where id = ?";
     private final String retrieveAllA = "select * from authors";
 
@@ -45,7 +47,6 @@ public class AuthorDao extends AbstractDao<Author>{
             )) {
                 statement.setString(1, author.getName());
                 statement.setInt(2, author.getAge());
-                statement.setString(3, author.getBooks());
                 statement.executeUpdate();
 
                 try (ResultSet resultSet = statement.getGeneratedKeys()) {
@@ -76,15 +77,12 @@ public class AuthorDao extends AbstractDao<Author>{
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "UPDATE authors set author_name = (?) where author_name = (?);" +
-                            "UPDATE authors set author_age = (?) where author_name = (?);" +
-                            "UPDATE authors set author_books = (?) where author_name = (?)"
+                            "UPDATE authors set author_age = (?) where author_name = (?);"
             )) {
                 statement.setString(1, author.getNewName());
                 statement.setString(2, author.getName());
                 statement.setInt(3, author.getNewAge());
                 statement.setString(4, author.getNewName());
-                statement.setString(5, author.getNewBooks());
-                statement.setString(6, author.getNewName());
 
                 statement.executeUpdate();
             }
@@ -94,14 +92,14 @@ public class AuthorDao extends AbstractDao<Author>{
     public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
         statement.setString(1, author.getName());
         statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
+        //statement.setString(3, author.getBooks());
     }
 
     public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
         statement.setString(1, author.getName());
         statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
-        statement.setLong(4, author.getId());
+        //statement.setString(3, author.getBooks());
+        //statement.setLong(4, author.getId());
     }
 
     @Override
@@ -113,6 +111,5 @@ public class AuthorDao extends AbstractDao<Author>{
         author.setBooks(rs.getString("author_books"));
         return author;
     }
-
 }
 

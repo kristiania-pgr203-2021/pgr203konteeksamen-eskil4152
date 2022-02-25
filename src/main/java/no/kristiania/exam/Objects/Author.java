@@ -2,6 +2,7 @@ package no.kristiania.exam.Objects;
 
 import no.kristiania.exam.dao.model.AbstractModel;
 
+import java.sql.Array;
 import java.util.List;
 
 public class Author extends AbstractModel {
@@ -12,6 +13,14 @@ public class Author extends AbstractModel {
     private String newName;
     private int newAge;
     private String newBooks;
+
+    public String getBooks() {
+        return books;
+    }
+
+    public void setBooks(String books) {
+        this.books = books;
+    }
 
     public String getNewBooks() {
         return newBooks;
@@ -43,14 +52,6 @@ public class Author extends AbstractModel {
 
     public void setNewAge(int newAge) {
         this.newAge = newAge;
-    }
-
-    public String getBooks() {
-        return books;
-    }
-
-    public void setBooks(String books) {
-        this.books = books;
     }
 
     public int getAge() {

@@ -1,5 +1,6 @@
 package no.kristiania.exam.dao;
 
+import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 
 import javax.sql.DataSource;
@@ -71,7 +72,7 @@ public class BookDao extends AbstractDao<Book>{
     public void save (Book book) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);" +
+                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?) ON CONFLICT do nothing;" +
                             "update authors set author_books = (?) where author_name = (?)"
             )) {
                 statement.setString(1, book.getBookName());
@@ -86,6 +87,26 @@ public class BookDao extends AbstractDao<Book>{
         }
     }
 
+    public List<Book> authorbook(Author author) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "select book_name from books where book_author = (?)"
+            )) {
+                statement.setString(1, author.getName());
+
+                statement.execute();
+
+                try (ResultSet rs = statement.executeQuery()){
+                    ArrayList<Book> books = new ArrayList<>();
+                    while (rs.next()){
+                        books.add(read(rs));
+                    }
+                    return books;
+                }
+            }
+        }
+    }
+
     private Book readResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBookName(rs.getString("book_name"));
@@ -93,6 +114,12 @@ public class BookDao extends AbstractDao<Book>{
         book.setBookDesc(rs.getString("book_description"));
         book.setBook_authors(rs.getString("book_author"));
         return book;
+    }
+
+    private Book read(ResultSet rs) throws SQLException {
+        Book b = new Book();
+        b.setBookName(rs.getString("book_name"));
+        return b;
     }
 
     public void alter(Book book) throws SQLException {

@@ -2,24 +2,38 @@ package no.kristiania.exam.Controllers;
 
 import no.kristiania.exam.Http.HttpMessage;
 import no.kristiania.exam.Objects.Author;
+import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.dao.AuthorDao;
+import no.kristiania.exam.dao.BookDao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class GetAuthorsController implements HttpControllerInterface {
 
     private final AuthorDao authorDao;
-    public GetAuthorsController(AuthorDao authorDao){
+    private final BookDao bookDao;
+    public GetAuthorsController(AuthorDao authorDao, BookDao bookDao){
         this.authorDao = authorDao;
+        this.bookDao = bookDao;
     }
+
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         StringBuilder res = new StringBuilder();
 
         for (Author a :
                 authorDao.listAll()) {
-            res.append("<div><p>Name: " + a.getName() + ", Age: " + a.getAge() + ", Books: " + a.getBooks() + "</p></div>");
+            ArrayList<Book> arrayList = new ArrayList<>();
+
+            for (Book b :
+                    bookDao.authorbook(a)) {
+                arrayList.add(b);
+            }
+            res.append("<div><p>Name: " + a.getName() + ", Age: " + a.getAge() + ", Books: ");
+            res.append(arrayList);
+            res.append("</p></div>");
         }
         return new HttpMessage("HTTP/1.1 200 OK", res.toString());
     }
