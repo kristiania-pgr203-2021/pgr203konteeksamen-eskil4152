@@ -1,8 +1,10 @@
 package no.kristiania.exam.dao;
 
+import no.kristiania.exam.dao.model.AbstractModel;
+
 import java.util.List;
 
-public class Author {
+public class Author extends AbstractModel {
     private String first_name;
     private String last_name;
     private int age;

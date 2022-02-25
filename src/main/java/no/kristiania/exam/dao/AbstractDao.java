@@ -17,10 +17,10 @@ public abstract class AbstractDao <T extends AbstractModel> {
     public DataSource getDataSource() {
         return dataSource;
     }
-    public abstract String getSaveString();
+    public abstract String getSaveBookToAuth();
     public abstract String getRetrieveByQuestionIdString();
-    public abstract String getRetrieveAllString();
-    public abstract String getUpdateString();
+    public abstract String getRetrieveAllFromAuth();
+    public abstract String getUpdateBookInAuth();
 
     public void save(T model, String statementString) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
