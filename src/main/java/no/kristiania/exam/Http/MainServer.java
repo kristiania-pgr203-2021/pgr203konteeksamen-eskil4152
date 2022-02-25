@@ -49,7 +49,6 @@ public class MainServer {
                 "jdbc:postgresql://localhost:5432/kontexamdb"));
         dataSource.setUser(properties.getProperty("dataSource.username"));
         dataSource.setPassword("dataSource.password");
-        Flyway.configure().dataSource(dataSource).load().migrate();
         return dataSource;
     }
 
