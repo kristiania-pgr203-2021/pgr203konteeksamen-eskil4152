@@ -28,6 +28,6 @@ public class AddBookController implements HttpControllerInterface {
 
         bookDao.save(book);
 
-        return new HttpMessage("HTTP/1.1 303 Redirect", "Done");
+        return new HttpMessage("HTTP/1.1 303", "", "/index.html");
     }
 }

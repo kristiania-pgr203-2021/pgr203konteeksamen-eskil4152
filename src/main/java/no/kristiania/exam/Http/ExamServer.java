@@ -28,7 +28,7 @@ public class ExamServer {
         httpServer.addController("/api/cookieAPI", new CookieCrumbController(userDao));*/
 
 
-        logger.info("Starting http://localhost:{}/preIndex.html", httpServer.getPort());
+        logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
 
 }
