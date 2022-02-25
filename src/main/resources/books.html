@@ -5,6 +5,8 @@
 <body>
 <h1>See all books</h1>
     <div id="output"></div>
+    <select name="filter">Filter books by author: </select>
+    <div id="output_filtered"></div>
 </body>
 <script>
     fetch("/api/getBooks")
@@ -13,6 +15,13 @@
         }).then(function (text) {
             document.getElementById("output").innerHTML = text;
     });
+
+    fetch("/api/filterBook")
+    .then(function (response) {
+        return response.text();
+    }).then(function (text){
+        document.getElementById("output_filtered").innerHTML;
+    })
 
 </script>
 </html>

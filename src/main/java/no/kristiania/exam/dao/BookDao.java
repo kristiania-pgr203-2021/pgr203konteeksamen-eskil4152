@@ -107,6 +107,25 @@ public class BookDao extends AbstractDao<Book>{
         }
     }
 
+    public List<Book> listBooksFiltered(Author author) throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "select book_name from books where book_author = (?)"
+            )) {
+                statement.setString(1, author.getName());
+                statement.executeUpdate();
+
+                try (ResultSet rs = statement.executeQuery()){
+                    ArrayList<Book> books = new ArrayList<>();
+                    while (rs.next()){
+                        books.add(read(rs));
+                    }
+                    return books;
+                }
+            }
+        }
+    }
+
     private Book readResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBookName(rs.getString("book_name"));

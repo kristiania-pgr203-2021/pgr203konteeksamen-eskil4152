@@ -32,7 +32,6 @@ public class EditAuthorController implements HttpControllerInterface {
         author.setName(URLDecoder.decode(nameToString.toString(), StandardCharsets.UTF_8.name()));
         author.setNewName(URLDecoder.decode(queryMap.get("newAuthorName"), StandardCharsets.UTF_8.name()));
         author.setNewAge(Integer.parseInt(URLDecoder.decode(queryMap.get("newAuthorAge"), StandardCharsets.UTF_8.name())));
-        author.setNewBooks(URLDecoder.decode(queryMap.get("newAuthorBooks"), StandardCharsets.UTF_8.name()));
 
         authorDao.alter(author);
 
