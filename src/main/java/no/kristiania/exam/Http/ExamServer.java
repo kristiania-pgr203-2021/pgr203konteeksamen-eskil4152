@@ -1,9 +1,6 @@
 package no.kristiania.exam.Http;
 
-import no.kristiania.exam.Controllers.AddBookController;
-import no.kristiania.exam.Controllers.AlterBooksController;
-import no.kristiania.exam.Controllers.BooksSelectController;
-import no.kristiania.exam.Controllers.GetBooksController;
+import no.kristiania.exam.Controllers.*;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
 import org.flywaydb.core.Flyway;
@@ -32,6 +29,9 @@ public class ExamServer {
         httpServer.addController("/api/getBooks", new GetBooksController(bookDao));
         httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
         httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));
+
+        httpServer.addController("/api/authorSelect", new AuthorSelectController(authorDao));
+        httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
         /*httpServer.addController("/api/listQuestions", new ListQuestionsController(questionDao));
         httpServer.addController("/api/questionSelect", new QuestionSelectController(questionDao));
         httpServer.addController("/api/answer", new AnswerQuestionController(answerDao, questionDao));
@@ -51,7 +51,7 @@ public class ExamServer {
 
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
         dataSource.setUrl(properties.getProperty("dataSource.url",
-                "jdbc:postgresql://localhost:5432/index"));
+                "jdbc:postgresql://localhost:5432/kontexamdb"));
         dataSource.setUser(properties.getProperty("dataSource.username"));
         dataSource.setPassword("dataSource.password");
         Flyway.configure().dataSource(dataSource).load().migrate();

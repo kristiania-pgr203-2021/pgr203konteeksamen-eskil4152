@@ -9,9 +9,13 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.HashMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class HttpServer {
+
+    private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
     private final ServerSocket serverSocket;
     private final HashMap<String, HttpControllerInterface> controllers = new HashMap<>();
@@ -28,6 +32,7 @@ public class HttpServer {
                 handleClient();
             }
         } catch (IOException | SQLException e) {
+            logger.info("ERROR!");
             e.printStackTrace();
         }
     }

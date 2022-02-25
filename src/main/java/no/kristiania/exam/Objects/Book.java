@@ -1,17 +1,15 @@
 package no.kristiania.exam.Objects;
 
-public class Book {
-    private long id;
+import no.kristiania.exam.dao.model.AbstractModel;
+
+public class Book extends AbstractModel {
     private String bookName;
     private String bookDesc;
+    private String bookGenre;
     private String newName;
     private String newDesc;
 
-    public void setBookGenre(String bookGenre) {
-        this.bookGenre = bookGenre;
-    }
-
-    private String bookGenre;
+    private String newGenre;
 
     @Override
     public String toString() {
@@ -34,14 +32,6 @@ public class Book {
 
     public void setNewDesc(String newDesc) {
         this.newDesc = newDesc;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getBook_authors() {
@@ -80,5 +70,17 @@ public class Book {
 
     public String getBookGenre() {
         return bookGenre;
+    }
+
+    public void setBookGenre(String bookGenre) {
+        this.bookGenre = bookGenre;
+    }
+
+    public String getNewGenre() {
+        return newGenre;
+    }
+
+    public void setNewGenre(String newGenre) {
+        this.newGenre = newGenre;
     }
 }

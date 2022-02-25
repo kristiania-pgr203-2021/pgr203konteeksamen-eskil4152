@@ -86,7 +86,7 @@ public class BookDao extends AbstractDao<Book>{
 
                 try (ResultSet resultSet = statement.getGeneratedKeys()){
                     resultSet.next();
-                    book.setId(resultSet.getLong("id"));
+                    book.setId(resultSet.getLong("book_id"));
                 }
             }
         }
@@ -106,7 +106,8 @@ public class BookDao extends AbstractDao<Book>{
             try(PreparedStatement statement = connection.prepareStatement(
                     "UPDATE books set book_name = (?) where book_name = (?);" +
                             "UPDATE books set book_description = (?) where book_name = (?); " +
-                            "UPDATE books set book_author = (?) where book_name = (?)"
+                            "UPDATE books set book_author = (?) where book_name = (?);" +
+                            "UPDATE books set book_genre = (?) where book_name = (?)"
             )) {
                 statement.setString(1, book.getNewName());
                 statement.setString(2, book.getBookName());
@@ -114,6 +115,8 @@ public class BookDao extends AbstractDao<Book>{
                 statement.setString(4, book.getNewName());
                 statement.setString(5, book.getNewAuthor());
                 statement.setString(6, book.getNewName());
+                statement.setString(7, book.getNewGenre());
+                statement.setString(8, book.getNewName());
 
                 statement.executeUpdate();
             }

@@ -1,4 +1,4 @@
 package no.kristiania.exam.Controllers;
 
-public class GetAuhtorsController {
+public class GetAuthorsController {
 }

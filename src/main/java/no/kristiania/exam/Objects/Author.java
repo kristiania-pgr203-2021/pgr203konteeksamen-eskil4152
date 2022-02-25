@@ -5,9 +5,45 @@ import no.kristiania.exam.dao.model.AbstractModel;
 import java.util.List;
 
 public class Author extends AbstractModel {
-    private String first_name;
-    private String last_name;
+
+    private String name;
     private int age;
+    private String books;
+    private String newName;
+    private int newAge;
+    private String newBooks;
+
+    public String getNewBooks() {
+        return newBooks;
+    }
+
+    public void setNewBooks(String newBooks) {
+        this.newBooks = newBooks;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNewName() {
+        return newName;
+    }
+
+    public void setNewName(String newName) {
+        this.newName = newName;
+    }
+
+    public int getNewAge() {
+        return newAge;
+    }
+
+    public void setNewAge(int newAge) {
+        this.newAge = newAge;
+    }
 
     public String getBooks() {
         return books;
@@ -15,24 +51,6 @@ public class Author extends AbstractModel {
 
     public void setBooks(String books) {
         this.books = books;
-    }
-
-    private String books;
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
     }
 
     public int getAge() {

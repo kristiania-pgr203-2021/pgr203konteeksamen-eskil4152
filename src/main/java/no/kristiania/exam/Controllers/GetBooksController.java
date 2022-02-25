@@ -19,7 +19,7 @@ public class GetBooksController implements HttpControllerInterface {
         StringBuilder res = new StringBuilder();
         for (Book book:
              bookDao.listBooks()) {
-            res.append("<div><p>Author: " + book.getBook_authors() + ", Book title: " + book.getBookName() + ", Description: " + book.getBookDesc() + "</p></div>");
+            res.append("<div><p>Author: " + book.getBook_authors() + ", Book title: " + book.getBookName() + ", Book genre: " + book.getBookGenre() + ", Description: " + book.getBookDesc() + "</p></div>");
         }
         return new HttpMessage("HTTP/1.1 200 OK", res.toString());
     }

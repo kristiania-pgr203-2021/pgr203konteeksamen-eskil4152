@@ -1,16 +1,18 @@
 package no.kristiania.exam.dao;
 
 import no.kristiania.exam.Objects.Author;
+import no.kristiania.exam.Objects.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AuthorDao extends AbstractDao<Author>{
 
-    private final String saveAuthor = "insert into authors (author_id, author_firstname, author_lastname, author_age, author_books) values (?, ?, ?, ?, ?)";
+    private final String saveAuthor = "insert into authors (author_name, author_age, author_books) values (?, ?, ?, ?)";
     private final String retrieveByAuthorId = "select * from authors where id = ?";
     private final String retrieveAllA = "select * from authors";
-    private final String updateAuthor = "update authors set author_firstname = ?, author_lastname = ?, author_age = ?, author_books = ? where id = ?";
 
     public AuthorDao(DataSource dataSource) {
         super(dataSource);
@@ -36,27 +38,81 @@ public class AuthorDao extends AbstractDao<Author>{
         return null;
     }
 
+    public void save(Author author) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    saveAuthor,
+                    Statement.RETURN_GENERATED_KEYS
+            )) {
+                statement.setString(1, author.getName());
+                statement.setInt(2, author.getAge());
+                statement.setString(3, author.getBooks());
+                statement.executeUpdate();
+
+                try (ResultSet resultSet = statement.getGeneratedKeys()) {
+                    resultSet.next();
+                    author.setId(resultSet.getLong("author_id"));
+                }
+            }
+        }
+    }
+
+    public List<Author> listAll() throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "select * from authors"
+            )) {
+                try(ResultSet resultSet = statement.executeQuery()) {
+                    ArrayList<Author> authors = new ArrayList<>();
+                    while (resultSet.next()){
+                        authors.add(mapFromResultSet(resultSet));
+                    }
+                    return authors;
+                }
+            }
+        }
+    }
+
+    public void alter(Author author) throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE authors set author_name = (?) where author_name = (?);" +
+                            "UPDATE authors set author_age = (?) where author_name = (?);" +
+                            "UPDATE authors set author_books = (?) where author_name = (?)"
+            )) {
+                statement.setString(1, author.getNewName());
+                statement.setString(2, author.getName());
+                statement.setInt(3, author.getNewAge());
+                statement.setString(4, author.getNewName());
+                statement.setString(5, author.getNewBooks());
+                statement.setString(6, author.getNewName());
+
+                statement.executeUpdate();
+            }
+        }
+    }
+
     public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getFirst_name());
-        statement.setString(2, author.getLast_name());
-        statement.setInt(3, author.getAge());
-        statement.setString(4, author.getBooks());
+        statement.setString(1, author.getName());
+        statement.setInt(2, author.getAge());
+        statement.setString(3, author.getBooks());
     }
 
     public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getFirst_name());
-        statement.setString(2, author.getLast_name());
-        statement.setInt(3, author.getAge());
-        statement.setString(4, author.getBooks());
-        statement.setLong(5, author.getId());
+        statement.setString(1, author.getName());
+        statement.setInt(2, author.getAge());
+        statement.setString(3, author.getBooks());
+        statement.setLong(4, author.getId());
     }
 
     @Override
     public Author mapFromResultSet(ResultSet rs) throws SQLException {
-        Author a = new Author(rs.getLong("author_id"), rs.getString("author_books"));
-        a.setId(rs.getLong("author_id"));
-        a.setBooks(rs.getString("author_books"));
-        return a;
+        Author author = new Author();
+        author.setId(rs.getLong("author_id"));
+        author.setAge(rs.getInt("author_age"));
+        author.setName(rs.getString("authorName"));
+        author.setBooks(rs.getString("author_books"));
+        return author;
     }
 
 }

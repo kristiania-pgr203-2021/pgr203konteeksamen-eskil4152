@@ -25,6 +25,7 @@ public class AddBookController implements HttpControllerInterface {
         book.setBookName(URLDecoder.decode(queryMap.get("title"), StandardCharsets.UTF_8.name()));
         book.setBookDesc(URLDecoder.decode(queryMap.get("description"), StandardCharsets.UTF_8.name()));
         book.setBook_authors(URLDecoder.decode(queryMap.get("authorId"), StandardCharsets.UTF_8.name()));
+        book.setBookGenre(URLDecoder.decode(queryMap.get("bookGenre"), StandardCharsets.UTF_8.name()));
 
         bookDao.save(book);
 
