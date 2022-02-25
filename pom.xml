@@ -80,7 +80,7 @@
                 <configuration>
                     <archive>
                         <manifestEntries>
-                            <Main-Class>no.kristiania.exam.Http.QuestionnaireServer</Main-Class>
+                            <Main-Class>no.kristiania.exam.Http.ExamServer</Main-Class>
                         </manifestEntries>
                     </archive>
                 </configuration>

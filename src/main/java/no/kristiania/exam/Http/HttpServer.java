@@ -1,6 +1,6 @@
 package no.kristiania.exam.Http;
 
-// import no.kristiania.exam.Controllers.HttpController;
+import no.kristiania.exam.Controllers.HttpControllerInterface;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class HttpServer {
 
     private final ServerSocket serverSocket;
-    //private final HashMap<String, HttpController> controllers = new HashMap<>();
+    private final HashMap<String, HttpControllerInterface> controllers = new HashMap<>();
 
     public HttpServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -47,7 +47,7 @@ public class HttpServer {
             fileTarget = requestTarget;
         }
 
-        /*if (controllers.containsKey(fileTarget)) {
+        if (controllers.containsKey(fileTarget)) {
             HttpMessage response = controllers.get(fileTarget).handle(httpMessage);
             response.write(clientSocket);
         } else {
@@ -65,7 +65,7 @@ public class HttpServer {
                 }
                 writeOkResponse(clientSocket, responseText, contentType);
                 return;
-            }*/
+            }
 
             String responseText = "File not found: " + requestTarget;
 
@@ -92,7 +92,7 @@ public class HttpServer {
         return serverSocket.getLocalPort();
     }
 
-    /*public void addController(String path, HttpController controller) {
+    public void addController(String path, HttpControllerInterface controller) {
         controllers.put(path, controller);
-    }*/
+    }
 }

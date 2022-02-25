@@ -1,13 +1,14 @@
 package no.kristiania.exam.Http;
 
-import no.kristiania.exam.Controllers.*;
+import no.kristiania.exam.Controllers.AddBookController;
+import no.kristiania.exam.Objects.BookDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.sql.DataSource;
 import java.io.IOException;
 
-public class QuestionnaireServer {
+public class ExamServer {
 
     private static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
 
@@ -15,10 +16,9 @@ public class QuestionnaireServer {
         HttpServer httpServer = new HttpServer(1962);
 
         DataSource datasource = Datasource.createDataSource();
-        //QuestionDao questionDao = new QuestionDao(datasource);
-        //AnswerDao answerDao = new AnswerDao(datasource);
-        //UserDao userDao = new UserDao(datasource);
+        BookDao bookDao = new BookDao(datasource);
 
+        httpServer.addController("/api/books", new AddBookController(bookDao));
         /*httpServer.addController("/api/listQuestions", new ListQuestionsController(questionDao));
         httpServer.addController("/api/questionSelect", new QuestionSelectController(questionDao));
         httpServer.addController("/api/answer", new AnswerQuestionController(answerDao, questionDao));
