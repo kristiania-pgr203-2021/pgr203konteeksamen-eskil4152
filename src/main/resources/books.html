@@ -1,0 +1,18 @@
+<!DOCTYPE html> <html lang="en"> <head>
+    <meta charset="UTF-8">
+    <title>See all books</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>See all books</h1>
+    <div id="output"></div>
+</body>
+<script>
+    fetch("/api/getBooks")
+        .then(function(response) {
+            return response.text();
+        }).then(function (text) {
+            document.getElementById("output").innerHTML = text;
+    });
+
+</script>
+</html>
