@@ -13,7 +13,7 @@ public class HttpMessage {
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);
-        readHeaders(socket);
+        readInputHeaders(socket);
         if (headerFields.containsKey("Content-Length")) {
             messageBody = HttpMessage.readBytes(socket, getContentLength());
         }
@@ -30,41 +30,12 @@ public class HttpMessage {
         this.location = location;
     }
 
-    public static Map<String, String> parseRequestParameters(String query) {
-        Map<String, String> queryMap = new HashMap<>();
-        for (String queryParameter : query.split("&")) {
-            int equalPos = queryParameter.indexOf('=');
-            String parameterName = queryParameter.substring(0, equalPos);
-            String parameterValue = queryParameter.substring(equalPos+1);
-            queryMap.put(parameterName, parameterValue);
-        }
-        return queryMap;
-    }
-
-    public int getContentLength() {
-        return Integer.parseInt(getHeader("Content-Length"));
-    }
-
-    public String getHeader (String headerName) {
-        return headerFields.get(headerName);
-    }
-
     static String readBytes(Socket socket, int contentLength) throws IOException {
         StringBuilder buffer = new StringBuilder();
         for (int i = 0; i < contentLength; i++) {
             buffer.append((char)socket.getInputStream().read());
         }
         return buffer.toString();
-    }
-
-    private void readHeaders(Socket socket) throws IOException {
-        String headerLine;
-        while (!(headerLine = HttpMessage.readLine(socket)).isBlank()) {
-            int colonPos = headerLine.indexOf(':');
-            String headerField = headerLine.substring(0, colonPos);
-            String headerValue = headerLine.substring(colonPos+1).trim();
-            headerFields.put(headerField, headerValue);
-        }
     }
 
     static String readLine(Socket socket) throws IOException {
@@ -88,5 +59,51 @@ public class HttpMessage {
                 messageBody;
         socket.getOutputStream().write(response.getBytes());
     }
+
+    public static Map<String, String> parseRequestParameters(String query) {
+        Map<String, String> queryMap = new HashMap<>();
+        for (String queryParameter : query.split("&")) {
+            int equalPos = queryParameter.indexOf('=');
+            String parameterName = queryParameter.substring(0, equalPos);
+            String parameterValue = queryParameter.substring(equalPos+1);
+            queryMap.put(parameterName, parameterValue);
+        }
+        return queryMap;
+    }
+
+    public static String getContentType(String path) {
+        String contentType;
+        contentType = "text/plain";
+        if (path.endsWith(".html")){
+            contentType = "text/html";
+        } else if (path.endsWith(".css")){
+            contentType = "text/css";
+        }
+        return contentType;
+    }
+
+    public int getContentLength() {
+        return Integer.parseInt(getHeader("Content-Length"));
+    }
+
+    public String getHeader (String headerName) {
+        return headerFields.get(headerName);
+    }
+
+    public static HashMap<String, String> readInputHeaders(Socket socket) throws IOException {
+        HashMap<String, String> headers = new HashMap<>();
+        String[] split;
+        String line = readLine(socket), key, value;
+
+        while (!line.isEmpty()) {
+            split = line.split(":");
+            key = split[0];
+            value = split[1].trim();
+            headers.put(key, value);
+            line = readLine(socket);
+        }
+        return headers;
+    }
+
 
 }

@@ -18,7 +18,7 @@ public abstract class AbstractDao <T extends AbstractModel> {
         return dataSource;
     }
     public abstract String getSaveBookToAuth();
-    public abstract String getRetrieveByQuestionIdString();
+    public abstract String getRetrieveByBookIdString();
     public abstract String getRetrieveAllFromAuth();
     public abstract String getUpdateBookInAuth();
 

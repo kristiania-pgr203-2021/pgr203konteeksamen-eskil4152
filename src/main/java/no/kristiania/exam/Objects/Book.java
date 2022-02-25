@@ -1,4 +1,4 @@
-package no.kristiania.exam.dao;
+package no.kristiania.exam.Objects;
 
 public class Book {
     private long id;
@@ -6,6 +6,12 @@ public class Book {
     private String bookDesc;
     private String newName;
     private String newDesc;
+
+    public void setBookGenre(String bookGenre) {
+        this.bookGenre = bookGenre;
+    }
+
+    private String bookGenre;
 
     @Override
     public String toString() {
@@ -70,5 +76,9 @@ public class Book {
 
     public void setNewAuthor(String newAuthor) {
         this.newAuthor = newAuthor;
+    }
+
+    public String getBookGenre() {
+        return bookGenre;
     }
 }

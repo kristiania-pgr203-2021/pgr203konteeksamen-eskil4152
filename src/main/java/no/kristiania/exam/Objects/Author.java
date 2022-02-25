@@ -1,4 +1,4 @@
-package no.kristiania.exam.dao;
+package no.kristiania.exam.Objects;
 
 import no.kristiania.exam.dao.model.AbstractModel;
 

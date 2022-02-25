@@ -1,8 +1,8 @@
 package no.kristiania.exam.Controllers;
 
 import no.kristiania.exam.Http.HttpMessage;
-import no.kristiania.exam.Objects.BookDao;
-import no.kristiania.exam.dao.Book;
+import no.kristiania.exam.dao.BookDao;
+import no.kristiania.exam.Objects.Book;
 
 import java.io.IOException;
 import java.sql.SQLException;

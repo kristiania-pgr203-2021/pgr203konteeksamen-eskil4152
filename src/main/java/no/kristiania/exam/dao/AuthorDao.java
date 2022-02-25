@@ -1,14 +1,16 @@
 package no.kristiania.exam.dao;
 
+import no.kristiania.exam.Objects.Author;
+
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.List;
 
 public class AuthorDao extends AbstractDao<Author>{
-    private final String saveBookToAuth = "insert into authors (author_books, book_id) values (?,?)";
-    private final String retrieveBookIdAuth = "select * from authors where book_id = ?";
-    private final String retrieveAllFromAuth = "select * from authors";
-    private final String updateBookInAuth = "update authors set author_books = ? where id = ?";
+
+    private final String saveAuthor = "insert into authors (author_id, author_firstname, author_lastname, author_age, author_books) values (?, ?, ?, ?, ?)";
+    private final String retrieveByAuthorId = "select * from authors where id = ?";
+    private final String retrieveAllA = "select * from authors";
+    private final String updateAuthor = "update authors set author_firstname = ?, author_lastname = ?, author_age = ?, author_books = ? where id = ?";
 
     public AuthorDao(DataSource dataSource) {
         super(dataSource);
@@ -16,57 +18,46 @@ public class AuthorDao extends AbstractDao<Author>{
 
     @Override
     public String getSaveBookToAuth() {
-        return saveBookToAuth;
+        return null;
     }
 
     @Override
-    public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getAuthorId());
-        statement.setLong(2, author.getBookId());
-    }
-
-    @Override
-    public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
-        // NEVER USED
-        statement.setString(1, author.getAuthorBooks());
-        statement.setString(2, Long.toString(author.getId()));
-    }
-
-    @Override
-    public String getUpdateBookInAuth() {
-        // NEVER USED
-        return updateBookInAuth;
-    }
-
-    @Override
-    public String getRetrieveByQuestionIdString() {
-        return retrieveBookIdAuth;
+    public String getRetrieveByBookIdString() {
+        return null;
     }
 
     @Override
     public String getRetrieveAllFromAuth() {
-        // NEVER USED
-        return retrieveAllFromAuth;
+        return null;
     }
 
+    @Override
+    public String getUpdateBookInAuth() {
+        return null;
+    }
 
+    public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
+        statement.setString(1, author.getFirst_name());
+        statement.setString(2, author.getLast_name());
+        statement.setInt(3, author.getAge());
+        statement.setString(4, author.getBooks());
+    }
+
+    public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
+        statement.setString(1, author.getFirst_name());
+        statement.setString(2, author.getLast_name());
+        statement.setInt(3, author.getAge());
+        statement.setString(4, author.getBooks());
+        statement.setLong(5, author.getId());
+    }
 
     @Override
-    protected Author mapFromResultSet(ResultSet rs) throws SQLException {
-        Author a = new Author(rs.getString("author_books"), rs.getLong("book_id"));
-        a.setId(rs.getLong("id"));
+    public Author mapFromResultSet(ResultSet rs) throws SQLException {
+        Author a = new Author(rs.getLong("author_id"), rs.getString("author_books"));
+        a.setId(rs.getLong("author_id"));
+        a.setBooks(rs.getString("author_books"));
         return a;
     }
 
-    public List<Author> retrieveByQuestionId(long questionId, String retrieveByQuestionIdString) throws SQLException {
-        try (Connection connection = dataSource.getConnection()) {
-            try (PreparedStatement statement = connection.prepareStatement(
-                    retrieveByQuestionIdString, Statement.RETURN_GENERATED_KEYS)) {
-                statement.setLong(1, questionId);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    return mapAllFromResultSet(resultSet);
-                }
-            }
-        }
-    }
 }
+
