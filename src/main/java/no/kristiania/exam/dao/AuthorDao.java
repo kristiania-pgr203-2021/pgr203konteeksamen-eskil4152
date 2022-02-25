@@ -110,7 +110,7 @@ public class AuthorDao extends AbstractDao<Author>{
         Author author = new Author();
         author.setId(rs.getLong("author_id"));
         author.setAge(rs.getInt("author_age"));
-        author.setName(rs.getString("authorName"));
+        author.setName(rs.getString("author_name"));
         author.setBooks(rs.getString("author_books"));
         return author;
     }

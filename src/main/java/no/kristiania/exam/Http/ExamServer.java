@@ -30,7 +30,7 @@ public class ExamServer {
         httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
         httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));
 
-        httpServer.addController("/api/authors", new GetAuthorsController(authorDao));
+        httpServer.addController("/api/getAuthors", new GetAuthorsController(authorDao));
         httpServer.addController("/api/createAuthor", new AddAuthorController(authorDao));
         httpServer.addController("/api/authorSelect", new AuthorSelectController(authorDao));
         httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
