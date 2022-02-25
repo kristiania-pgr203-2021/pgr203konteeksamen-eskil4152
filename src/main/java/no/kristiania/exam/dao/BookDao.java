@@ -94,8 +94,9 @@ public class BookDao extends AbstractDao<Book>{
 
     private Book readResultSet(ResultSet rs) throws SQLException {
         Book book = new Book();
-        book.setId(rs.getLong("id"));
+        book.setId(rs.getLong("book_id"));
         book.setBookName(rs.getString("book_name"));
+        book.setBookGenre(rs.getString("book_genre"));
         book.setBookDesc(rs.getString("book_description"));
         book.setBook_authors(rs.getString("book_author"));
         return book;

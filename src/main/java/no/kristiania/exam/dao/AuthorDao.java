@@ -10,7 +10,7 @@ import java.util.List;
 
 public class AuthorDao extends AbstractDao<Author>{
 
-    private final String saveAuthor = "insert into authors (author_name, author_age, author_books) values (?, ?, ?, ?)";
+    private final String saveAuthor = "insert into authors (author_name, author_age, author_books) values (?, ?, ?)";
     private final String retrieveByAuthorId = "select * from authors where id = ?";
     private final String retrieveAllA = "select * from authors";
 

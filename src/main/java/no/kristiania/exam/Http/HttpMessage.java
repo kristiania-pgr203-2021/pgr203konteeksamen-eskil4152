@@ -88,8 +88,4 @@ public class HttpMessage {
             headerFields.put(headerField, headerValue);
         }
     }
-
-
-
-
 }
