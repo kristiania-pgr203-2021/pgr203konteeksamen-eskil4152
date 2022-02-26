@@ -147,10 +147,11 @@ public class BookDao extends AbstractDao<Book>{
     public void addAuthorToBook(Book book) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try (PreparedStatement statement = connection.prepareStatement(
-                    "UPDATE books set book_author = (?) where book_name = (?)"
+                    "update books set book_author = books.book_author || (?) where book_name = (?)"
             )) {
                 statement.setString(1, book.getNewAuthor());
                 statement.setString(2, book.getBookName());
+                //statement.setString(0, book.getBook_authors());
 
                 statement.executeUpdate();
             }
