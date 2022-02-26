@@ -73,6 +73,25 @@ public class AuthorDao extends AbstractDao<Author>{
         }
     }
 
+    public List<Author> listBooksFiltered(Author author) throws SQLException {
+        try(Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "select book_name from books where book_author = (?)"
+            )) {
+                statement.setString(1, author.getName());
+                statement.executeUpdate();
+
+                try (ResultSet rs = statement.executeQuery()){
+                    ArrayList<Author> books = new ArrayList<>();
+                    while (rs.next()){
+                        books.add(mapFiltered(rs));
+                    }
+                    return books;
+                }
+            }
+        }
+    }
+
     public void alter(Author author) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
@@ -108,6 +127,12 @@ public class AuthorDao extends AbstractDao<Author>{
         author.setId(rs.getLong("author_id"));
         author.setAge(rs.getInt("author_age"));
         author.setName(rs.getString("author_name"));
+        author.setBooks(rs.getString("author_books"));
+        return author;
+    }
+
+    public Author mapFiltered(ResultSet rs) throws SQLException {
+        Author author = new Author();
         author.setBooks(rs.getString("author_books"));
         return author;
     }
