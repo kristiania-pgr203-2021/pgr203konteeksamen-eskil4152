@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class AlterBooksController implements HttpControllerInterface {
 
-    public BookDao bookDao;
+    private BookDao bookDao;
+
     public AlterBooksController(BookDao bookDao) {
         this.bookDao = bookDao;
     }

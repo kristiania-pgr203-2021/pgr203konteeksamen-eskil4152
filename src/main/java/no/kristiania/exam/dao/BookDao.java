@@ -87,7 +87,7 @@ public class BookDao extends AbstractDao<Book>{
         }
     }
 
-    public List<Book> authorbook(Author author) throws SQLException {
+    public List<Book> authorBook(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "select book_name from books where book_author = (?)"
@@ -138,6 +138,19 @@ public class BookDao extends AbstractDao<Book>{
                 statement.setString(6, book.getNewName());
                 statement.setString(7, book.getNewGenre());
                 statement.setString(8, book.getNewName());
+
+                statement.executeUpdate();
+            }
+        }
+    }
+
+    public void addAuthorToBook(Book book) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try (PreparedStatement statement = connection.prepareStatement(
+                    "UPDATE books set book_author = (?) where book_name = (?)"
+            )) {
+                statement.setString(1, book.getNewAuthor());
+                statement.setString(2, book.getBookName());
 
                 statement.executeUpdate();
             }

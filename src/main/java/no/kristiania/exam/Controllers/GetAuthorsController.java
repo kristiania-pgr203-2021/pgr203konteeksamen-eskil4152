@@ -25,15 +25,17 @@ public class GetAuthorsController implements HttpControllerInterface {
 
         for (Author a :
                 authorDao.listAll()) {
-            ArrayList<Book> arrayList = new ArrayList<>();
 
-            for (Book b :
-                    bookDao.authorbook(a)) {
-                arrayList.add(b);
-            }
-            res.append("<div><p>Name: " + a.getName() + ", Age: " + a.getAge() + ", Books: ");
-            res.append(arrayList);
-            res.append("</p></div>");
+            ArrayList<Book> arrayList = new ArrayList<>(bookDao.authorBook(a));
+
+            res.append("<div><p>Name: ")
+                .append(a.getName())
+                .append(", Age: ")
+                .append(a.getAge())
+                .append(", Books: ")
+                //.append(arrayList)
+                    .append(a.getBooks())
+                .append("</p></div>");
         }
         return new HttpMessage("HTTP/1.1 200 OK", res.toString());
     }

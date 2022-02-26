@@ -3,7 +3,6 @@ package no.kristiania.exam.Http;
 import no.kristiania.exam.Controllers.*;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
-import org.flywaydb.core.Flyway;
 import org.postgresql.ds.PGSimpleDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +35,7 @@ public class MainServer {
         httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
 
         //httpServer.addController("/api/filterBook", new FilterBooksController(bookDao, authorDao));
+        httpServer.addController("/api/updateBook", new addAuthorToBookController(authorDao, bookDao));
 
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
