@@ -34,7 +34,7 @@ public class MainServer {
         httpServer.addController("/api/authorSelect", new AuthorSelectController(authorDao));
         httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
 
-        //httpServer.addController("/api/filterBook", new FilterBooksController(bookDao, authorDao));
+        httpServer.addController("/api/booksFilter", new FilterBooksController(bookDao, authorDao));
         httpServer.addController("/api/updateBook", new addAuthorToBookController(authorDao, bookDao));
 
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());

@@ -76,7 +76,7 @@ public class AuthorDao extends AbstractDao<Author>{
     public List<Author> listBooksFiltered(Author author) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "select book_name from books where book_author = (?)"
+                    "select book_name from books where book_author LIKE '%' || (?) || '%'"
             )) {
                 statement.setString(1, author.getName());
                 statement.executeUpdate();

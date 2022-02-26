@@ -34,11 +34,11 @@
     })
 
     fetch("/api/booksSelect")
-        .then(function (response) {
+        .then(function (response){
             return response.text();
-        }).then(function (text) {
+        }).then(function (text){
         document.getElementById("booksSelect").innerHTML = text;
-    });
+    })
 
 </script>
 </html>

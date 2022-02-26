@@ -37,7 +37,6 @@ public class AlterBooksController implements HttpControllerInterface {
         book.setNewName(URLDecoder.decode(queryMap.get("newBookTitle"), StandardCharsets.UTF_8.name()));
         book.setNewDesc(URLDecoder.decode(queryMap.get("newBookDescription"), StandardCharsets.UTF_8.name()));
         book.setNewAuthor(URLDecoder.decode(queryMap.get("newBookAuthor"), StandardCharsets.UTF_8.name()));
-        book.setNewGenre(URLDecoder.decode(queryMap.get("newBookGenre"), StandardCharsets.UTF_8.name()));
 
         bookDao.alter(book);
 

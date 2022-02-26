@@ -28,7 +28,7 @@ public class GetAuthorsController implements HttpControllerInterface {
 
             ArrayList<Book> arrayList = new ArrayList<>();
             for (Book b :
-                    bookDao.authorBook(a)) {
+                    bookDao.booksByAuthor(a)) {
                 arrayList.add(b);
             }
 

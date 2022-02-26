@@ -5,10 +5,8 @@ import no.kristiania.exam.dao.BookDao;
 import no.kristiania.exam.Objects.Book;
 
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Map;
+
 
 public class GetBooksController implements HttpControllerInterface {
     private final BookDao bookDao;
@@ -20,8 +18,10 @@ public class GetBooksController implements HttpControllerInterface {
     @Override
     public HttpMessage handle(HttpMessage request) throws SQLException, IOException {
         StringBuilder res = new StringBuilder();
+
         for (Book book:
              bookDao.listBooks()) {
+
             res.append("<p><div>")
                     .append("Book title: ")
                     .append(book.getBookName())

@@ -24,13 +24,6 @@
         document.getElementById("output").innerHTML = text;
     });
 
-    /*fetch("/api/booksAlter")
-        .then(function (res) {
-            return res.text();
-        }).then(function (text) {
-        document.getElementById("booksToAlter")
-    });*/
-
     fetch("/api/authorSelect")
         .then(function (response) {
             return response.text();

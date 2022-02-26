@@ -22,6 +22,7 @@ public class AuthorSelectController implements HttpControllerInterface {
                 authorDao.listAll()) {
             res.append("<option value=" + (value++) + ">" + a.getName() + "</option>");
         }
+
         return new HttpMessage("HTTP/1.1 200 OK", res.toString());
     }
 }

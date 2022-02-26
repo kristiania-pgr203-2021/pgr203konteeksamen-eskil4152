@@ -87,10 +87,10 @@ public class BookDao extends AbstractDao<Book>{
         }
     }
 
-    public List<Book> authorBook(Author author) throws SQLException {
+    public List<Book> booksByAuthor(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "select * from books where book_author LIKE \'%\' || (?) || \'%\'"
+                    "select * from books where book_author LIKE '%' || (?) || '%'"
             )) {
                 statement.setString(1, author.getName());
 
@@ -127,8 +127,7 @@ public class BookDao extends AbstractDao<Book>{
             try(PreparedStatement statement = connection.prepareStatement(
                     "UPDATE books set book_name = (?) where book_name = (?);" +
                             "UPDATE books set book_description = (?) where book_name = (?); " +
-                            "UPDATE books set book_author = (?) where book_name = (?);" +
-                            "UPDATE books set book_genre = (?) where book_name = (?)"
+                            "UPDATE books set book_author = (?) where book_name = (?);"
             )) {
                 statement.setString(1, book.getNewName());
                 statement.setString(2, book.getBookName());
@@ -136,8 +135,6 @@ public class BookDao extends AbstractDao<Book>{
                 statement.setString(4, book.getNewName());
                 statement.setString(5, book.getNewAuthor());
                 statement.setString(6, book.getNewName());
-                statement.setString(7, book.getNewGenre());
-                statement.setString(8, book.getNewName());
 
                 statement.executeUpdate();
             }
@@ -151,7 +148,6 @@ public class BookDao extends AbstractDao<Book>{
             )) {
                 statement.setString(1, book.getNewAuthor());
                 statement.setString(2, book.getBookName());
-                //statement.setString(0, book.getBook_authors());
 
                 statement.executeUpdate();
             }
