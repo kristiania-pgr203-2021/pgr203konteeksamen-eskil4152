@@ -1,0 +1,1 @@
+insert into books (book_name, book_genre, book_description, book_author) VALUES ('How to write books', 'Comedy', 'Use a pen', ARRAY['Benedict Cumberbatch', 'Lars Bjornbak', 'Eskil 123'])
