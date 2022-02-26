@@ -90,7 +90,7 @@ public class BookDao extends AbstractDao<Book>{
     public List<Book> authorBook(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
-                    "select book_name from books where book_author = (?)"
+                    "select * from books where book_author LIKE \'%\' || (?) || \'%\'"
             )) {
                 statement.setString(1, author.getName());
 
