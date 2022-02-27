@@ -58,5 +58,11 @@ Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen 
 * [x] Welcome page
 * [ ] FileController
 
+## Design: 
+Vi designet programmet ved å først kunne lagt author og book i en database. Så la vi til at du kunne endre author og book, ved at den har flere verdier som skal endres, som endres ved select som printer ut navnet. Dermed vil den endre navnet til bok/forfatter hvor den matcher det gamle navnet du selecter. Så vil de oppdatere de andre tingene til objektet som har det nye navnet som ble oppdatert. Vi designet programmet ved å først kunne lagt author og book i en database. Så la vi til at du kunne endre author og book, ved at den har flere verdier som skal endres, som endres ved select som printer ut navnet. Dermed vil den endre navnet til bok/forfatter hvor den matcher det gamle navnet du selecter. Så vil de oppdatere de andre tingene til objektet som har det nye navnet som ble oppdatert.
+Når du legger til forfattere til en bok, vil du måtte bruke select til å velge forfatter og bok, så du kun kan velge forfattere eller bøker som eksisterer i database. Så vil den finne boken som ble valgt, og oppdatere forfatter kolonnen til eksisterende verdier + valgt forfatter name. 
+Når du filtrerer bøker etter forfatter, eller printer alle forfattere vil den printe alle bøker som forfatteren(e) er en del av. Det gjorde vi gjennom at Postgres bruker regex til å finne forfatternavn i forfatterkolonnen til bøkene, og om det finnes inni der, vil den skrive ut boken til author.getBooks().
+
+Vi har også en EmptyTargetController, som er laget på en ganske enkel måte. Det er en kontroller i serveren som reagerer på "/", da vi den gå til kontrollen som kun returnerer en 303 til /index.html. 
 
 ## UML
