@@ -15,8 +15,7 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 ## Beskriv hvordan programmet skal testes:
 
 ### Testing
-* Når du skal teste om serveren kjører går vi først til `localhost:8080`. Deretter tester vi følgende:
-  * Gå til localhost:1962
+* Når du skal teste om serveren kjører går vi først til `localhost:1962`. Deretter tester vi følgende:
   * Se alle forfattere
   * Legg til bok på en forfatter
   * Vise alle bøker
