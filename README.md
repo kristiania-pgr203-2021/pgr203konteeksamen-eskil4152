@@ -7,6 +7,11 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 * https://github.com/kristiania-pgr203-2021/pgr203-exam-CrumbMonsters
 * https://github.com/kristiania-pgr203-2021/pgr203-innlevering-3-eskil4152
 
+## Andre linker: 
+* Github actions: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152/actions
+* Github classrooms/repository: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152
+* UML: ____
+
 ## Beskriv hvordan programmet skal testes:
 
 ### Testing
@@ -18,9 +23,9 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
   * 
 
 ## Dokumentasjon av bygging og kjøring via CMD
-* For å komme i gang starter vi med å kjøre en maven Clean. Dette kan gjøres gjennom Maven baren til høyre, under Lifcycle og så velge clean eller i terminal med "mvn clean". Dette gjøres for å forsikre oss om at rester etter tidlgiere programkjøringer blir borte.
+* For å komme i gang starter vi med å kjøre en maven Clean. Dette kan gjøres gjennom Maven baren til høyre, under Lifcycle og så velge clean eller i terminal med "mvn clean". Dette gjøres for å forsikre oss om at rester etter tidligere programkjøringer blir borte.
 * Deretter kjører vi en Maven Package. Dette kan gjøres på samme måte som steg 1, men i stedet for clean velger vi package under Lifecycle og i terminal skriver vi "mvn package".
-Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen mappe. MERK: Mappen må ha en properties fil med navn "config.properties" for å fungere. Denne filen er nødvendig for å få tilgang til postgres databasene.
+Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen mappe. MERK: Mappen må ha en properties fil med navn "pgr203.properties" for å fungere. Denne filen er nødvendig for å få tilgang til postgres databasene.
 * Jar-filen vil ligge i target. Denne kan nå flyttes hvor som helst
 * Opprett pgr203.properties med følgende verdier:
   * `dataSource.url=[database-url]` (Din url)
@@ -30,3 +35,28 @@ Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen 
 * Programmet kan nå startes og bør kunne lese verdiene fra config.properties av seg selv.
 * Skriv så 'java -jar Java-Eksamen-1.0-SNAPSHOT.jar' i terminalen. Dette skal eksekvere JAR filen og starte serveren.
 * For å avslutte programmet må man per nå gå i terminal og trykke control c. Kleint
+
+## Leveranse: 
+* [x] Brukeren kan opprette forfatter
+* [x] Brukeren kan liste ut forfattere 
+* [x] Brukeren kan legge til bøker på en forfatter
+* [x] Bruker kan liste ut alle bøker
+* [x] Bruker kan liste ut alle bøker pr forfatter
+* [ ] Vise redigeringsskjermbilde for forfatter?
+* [x] Bruker kan endre navn på forfatter
+* [ ] Vise redigeringsskjermbilde for bøker?
+* [x] Bruker kan endre navn på bok
+* [x] Bruker kan endre beskrivelse på bok
+* [x] Brukeren kan legge til flere forfattere pr bok
+
+## Ekstra leveranse: 
+* [x] Redirect etter POST
+* [x] POST og GET med norske tegn
+* [ ] POST og GET med norske tegn i test
+* [ ] POST og GET til samme requestTarget
+* [ ] Feilhåndtering
+* [x] Welcome page
+* [ ] FileController
+
+
+## UML
