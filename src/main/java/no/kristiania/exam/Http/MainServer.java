@@ -2,6 +2,7 @@ package no.kristiania.exam.Http;
 
 import no.kristiania.exam.Controllers.Author.*;
 import no.kristiania.exam.Controllers.Books.*;
+import no.kristiania.exam.Controllers.EmptyTargetController;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
 import org.flywaydb.core.Flyway;
@@ -30,14 +31,18 @@ public class MainServer {
         httpServer.addController("/api/getBooks", new GetBooksController(bookDao));
         httpServer.addController("/api/booksSelect", new BooksSelectController(bookDao));
         httpServer.addController("/api/alterBook", new AlterBooksController(bookDao));
+
         httpServer.addController("/api/getAuthors", new GetAuthorsController(authorDao, bookDao));
         httpServer.addController("/api/createAuthor", new AddAuthorController(authorDao));
         httpServer.addController("/api/authorSelect", new AuthorSelectController(authorDao));
         httpServer.addController("/api/alterAuthor", new EditAuthorController(authorDao));
+
         httpServer.addController("/api/booksFilter", new FilterBooksController(bookDao, authorDao));
         httpServer.addController("/api/updateBook", new addAuthorToBookController(authorDao, bookDao));
         httpServer.addController("/api/booksFilter", new FilterBooksController(bookDao, authorDao));
         httpServer.addController("/api/updateBook", new addAuthorToBookController(authorDao, bookDao));
+
+        httpServer.addController("/", new EmptyTargetController());
 
         logger.info("Starting http://localhost:{}/index.html", httpServer.getPort());
     }
