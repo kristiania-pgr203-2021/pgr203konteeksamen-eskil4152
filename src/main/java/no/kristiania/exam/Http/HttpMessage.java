@@ -12,7 +12,6 @@ public class HttpMessage {
     public final Map<String, String> headerFields = new HashMap<>();
     public String messageBody;
     public String location;
-    public String requestBody;
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);

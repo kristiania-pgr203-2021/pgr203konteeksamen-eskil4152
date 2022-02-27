@@ -2,9 +2,7 @@ package no.kristiania.exam.controllers.Books;
 
 import no.kristiania.exam.Controllers.Books.FilterBooksController;
 import no.kristiania.exam.Http.HttpClient;
-import no.kristiania.exam.Http.HttpMessage;
 import no.kristiania.exam.Http.HttpServer;
-import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.AuthorDao;
@@ -12,12 +10,9 @@ import no.kristiania.exam.dao.BookDao;
 import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -55,8 +50,8 @@ public class FilterBooksControllerTest {
         book.setBook_authors("Johannes Brodwall");
 
         bookDao.saveForTest(book);
-        //bookDao.saveForTest(book1);
-        //bookDao.saveForTest(book2);
+        bookDao.saveForTest(book1);
+        bookDao.saveForTest(book2);
 
         server.addController("/api/booksFilter", new FilterBooksController(bookDao, authorDao));
 

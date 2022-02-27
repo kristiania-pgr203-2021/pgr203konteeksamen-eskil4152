@@ -26,7 +26,7 @@ public class AddBookController implements HttpControllerInterface {
         Map<String, String> queryMap = HttpMessage.parseRequestParameters(request.messageBody);
         Book book = new Book();
 
-        String author = queryMap.get("authorId");
+        String author = queryMap.get("authorName");
         String authorString = "";
 
         for (int i = 0; i < authorDao.listAll().size(); i++) {
@@ -35,7 +35,7 @@ public class AddBookController implements HttpControllerInterface {
             }
         }
 
-        book.setBook_authors(URLDecoder.decode(authorString.toString(), StandardCharsets.UTF_8.name()));
+        book.setBook_authors(URLDecoder.decode(authorString, StandardCharsets.UTF_8.name()));
 
         book.setBookName(URLDecoder.decode(queryMap.get("title"), StandardCharsets.UTF_8.name()));
         book.setBookDesc(URLDecoder.decode(queryMap.get("description"), StandardCharsets.UTF_8.name()));

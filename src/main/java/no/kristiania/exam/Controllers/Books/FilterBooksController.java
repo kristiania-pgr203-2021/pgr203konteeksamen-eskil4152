@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
-import java.util.Locale;
 import java.util.Map;
 
 public class FilterBooksController implements HttpControllerInterface {

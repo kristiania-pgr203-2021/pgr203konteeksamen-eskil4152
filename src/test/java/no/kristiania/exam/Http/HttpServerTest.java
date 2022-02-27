@@ -2,7 +2,6 @@ package no.kristiania.exam.Http;
 
 import no.kristiania.exam.Controllers.Author.AuthorSelectController;
 import no.kristiania.exam.Controllers.Author.GetAuthorsController;
-import no.kristiania.exam.Controllers.Books.AddBookController;
 import no.kristiania.exam.Controllers.Books.BooksSelectController;
 import no.kristiania.exam.Controllers.Books.GetBooksController;
 import no.kristiania.exam.Controllers.EmptyTargetController;
@@ -12,8 +11,6 @@ import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
 import org.assertj.core.api.Fail;
-import org.checkerframework.checker.units.qual.A;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

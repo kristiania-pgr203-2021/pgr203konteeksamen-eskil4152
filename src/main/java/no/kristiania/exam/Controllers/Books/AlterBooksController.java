@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class AlterBooksController implements HttpControllerInterface {
 
-    private BookDao bookDao;
+    private final BookDao bookDao;
 
     public AlterBooksController(BookDao bookDao) {
         this.bookDao = bookDao;

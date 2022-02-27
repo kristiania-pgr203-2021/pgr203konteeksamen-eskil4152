@@ -3,9 +3,7 @@ package no.kristiania.exam.Controllers;
 import no.kristiania.exam.Http.HttpMessage;
 
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.Map;
 
 public class EmptyTargetController implements HttpControllerInterface {
     @Override

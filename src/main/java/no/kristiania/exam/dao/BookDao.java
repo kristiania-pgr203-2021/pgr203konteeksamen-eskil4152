@@ -8,11 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookDao extends AbstractDao<Book>{
-
-    private final String retrieveByBookName = "select * from books where book_name = ?";
-    private final String retrieveAllB = "select * from books";
-    private final String updateBook = "update books set book_name = ?, book_genre = ?, book_description = ?, book_author = ? where book_id = ?";
+public class BookDao extends AbstractDao<Book> {
 
     public BookDao(DataSource dataSource) {
         super(dataSource);

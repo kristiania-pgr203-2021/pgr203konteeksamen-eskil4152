@@ -1,6 +1,5 @@
 package no.kristiania.exam.controllers.Books;
 
-import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.BookDao;

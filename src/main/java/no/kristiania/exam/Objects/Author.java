@@ -2,8 +2,6 @@ package no.kristiania.exam.Objects;
 
 import no.kristiania.exam.dao.model.AbstractModel;
 
-import java.sql.Array;
-import java.util.List;
 
 public class Author extends AbstractModel {
 
