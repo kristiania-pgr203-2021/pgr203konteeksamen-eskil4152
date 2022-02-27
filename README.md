@@ -27,17 +27,17 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 
 ## Dokumentasjon av bygging og kjøring via CMD
 * For å komme i gang starter vi med å kjøre en maven Clean. Dette kan gjøres gjennom Maven baren til høyre, under Lifcycle og så velge clean eller i terminal med "mvn clean". Dette gjøres for å forsikre oss om at rester etter tidligere programkjøringer blir borte.
-* Deretter kjører vi en Maven Package. Dette kan gjøres på samme måte som steg 1, men i stedet for clean velger vi package under Lifecycle og i terminal skriver vi "mvn package".
-Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen mappe. MERK: Mappen må ha en properties fil med navn "pgr203.properties" for å fungere. Denne filen er nødvendig for å få tilgang til postgres databasene.
-* Jar-filen vil ligge i target. Denne kan nå flyttes hvor som helst
+* Deretter kjører vi en Maven Package. Dette kan gjøres på samme måte som steg 1, men i stedet for clean velger vi package under Lifecycle og i terminal skriver vi "mvn package". Det kan hende at package failer ved test feil, det skjer noen ganger med httpclient, når httpbin.org ikke svarer som den skal. Da er det bare å kjøre mvn-clean og mvn-package igjen.
+Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen mappe, den ligger nå i. target mappen.
 * Opprett pgr203.properties med følgende verdier:
   * `dataSource.url=[database-url]` (Din url)
   * `dataSource.username=[brukernavn]` (Ditt username)
   * `datasource.password=[passord]` (Ditt passord)
-* Legg `pgr203.properties` i samme directory som jar-filen
-* Programmet kan nå startes og bør kunne lese verdiene fra config.properties av seg selv.
-* Skriv så 'java -jar Java-Eksamen-1.0-SNAPSHOT.jar' i terminalen. Dette skal eksekvere JAR filen og starte serveren.
-* For å avslutte programmet må man per nå gå i terminal og trykke control c. Kleint
+  * Legg filen i root directory
+* Programmet kan nå startes og bør kunne lese verdiene fra pgr203.properties av seg selv.
+* Skriv så 'java -jar java -jar pgr203konteeksamen-eskil4152-1.0-SNAPSHOT.jar' i terminalen. Dette skal eksekvere JAR filen og starte serveren.
+* Du må legge `pgr203.properties` i i target directory om du ikke kjører java -jar med target/..
+* For å avslutte programmet må man per nå gå i terminal og trykke control c
 
 ## Leveranse: 
 * [x] Brukeren kan opprette forfatter
