@@ -26,27 +26,7 @@ public class BooksSelectControllerTest  {
 
     @Test
     void shouldListBooksInASelect() throws SQLException, IOException {
-        Book book = new Book();
-        book.setBookName("Book one");
-
-        Book book1 = new Book();
-        book1.setBookName("Book two");
-
-        Book book2 = new Book();
-        book2.setBookName("Book three");
-
-        bookDao.saveForTest(book);
-        bookDao.saveForTest(book1);
-        bookDao.saveForTest(book2);
-
-        server.addController("/api/booksSelect", new BooksSelectController(bookDao));
-
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/booksSelect");
-
-        assertEquals(
-                "<option value=0>Book one</option><option value=1>Book two</option><option value=2>Book three</option>",
-                client.getMessageBody()
-        );
+        assertEquals(2, 3);
     }
 
     @AfterAll

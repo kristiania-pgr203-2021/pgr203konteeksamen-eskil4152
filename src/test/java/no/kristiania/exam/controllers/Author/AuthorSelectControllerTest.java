@@ -46,7 +46,9 @@ public class AuthorSelectControllerTest {
         HttpClient client = new HttpClient("localhost", server.getPort(), "/api/authorSelect");
 
         assertEquals(
-                "<option value=0>Howsa Mibals</option><option value=1>Tasti Miknuts</option><option value=2>Big Brain</option>",
+                // Had to add value 0-2 as other people than test, as V003 adds three people to table when table is created
+                "<option value=0>Lars Bjornbak</option><option value=1>Benedict Cumberbatch</option><option value=2>Batman the First</option>" +
+                        "<option value=3>Howsa Mibals</option><option value=4>Tasti Miknuts</option><option value=5>Big Brain</option>",
                 client.getMessageBody()
         );
     }
@@ -82,15 +84,6 @@ public class AuthorSelectControllerTest {
         author.setName("Big Brain");
         author.setAge(420);
         author.setBooks("Bigger Heart");
-
-        return author;
-    }
-
-    private Author exampleAuthor4() {
-        Author author = new Author();
-        author.setName("Some One");
-        author.setAge(52);
-        author.setBooks("Other One");
 
         return author;
     }

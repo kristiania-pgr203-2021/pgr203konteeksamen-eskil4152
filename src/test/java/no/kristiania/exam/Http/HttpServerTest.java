@@ -1,12 +1,24 @@
 package no.kristiania.exam.Http;
 
+import no.kristiania.exam.Controllers.Author.GetAuthorsController;
+import no.kristiania.exam.Controllers.Books.AddBookController;
+import no.kristiania.exam.Controllers.Books.BooksSelectController;
+import no.kristiania.exam.Objects.Author;
+import no.kristiania.exam.Objects.Book;
+import no.kristiania.exam.TestData;
+import no.kristiania.exam.dao.AuthorDao;
+import no.kristiania.exam.dao.BookDao;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.time.LocalTime;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpServerTest {
@@ -70,5 +82,60 @@ public class HttpServerTest {
                 getStatusCode());
         assertEquals(200, new HttpClient("localhost", server.getPort(), "/index.html").
                 getStatusCode());
+    }
+
+    @Test
+    void shouldListAsSelect() throws IOException, SQLException {
+        BookDao bookDao = new BookDao(TestData.testDataSource());
+
+        Book book = new Book();
+        book.setBookName("Book one");
+
+        Book book1 = new Book();
+        book1.setBookName("Book two");
+
+        Book book2 = new Book();
+        book2.setBookName("Book three");
+
+        bookDao.saveForTest(book);
+        bookDao.saveForTest(book1);
+        bookDao.saveForTest(book2);
+
+        server.addController("/api/booksSelect", new BooksSelectController(bookDao));
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/booksSelect");
+
+        assertEquals(
+                "<option value=0>Book one</option><option value=1>Book two</option><option value=2>Book three</option>",
+                client.getMessageBody()
+        );
+    }
+
+    @Test
+    void shouldListAuthors() throws SQLException, IOException {
+        AuthorDao authorDao = new AuthorDao(TestData.testDataSource());
+        BookDao bookDao = new BookDao(TestData.testDataSource());
+
+        Author author = new Author();
+        author.setName(URLDecoder.decode("Erik", StandardCharsets.UTF_8));
+        author.setAge(25);
+        authorDao.save(author);
+
+        Author author1 = new Author();
+        author1.setName(URLDecoder.decode("Lasse", StandardCharsets.UTF_8));
+        author1.setAge(21);
+        authorDao.save(author1);
+
+        server.addController("/api/getAuthors", new GetAuthorsController(authorDao, bookDao));
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/getAuthors");
+
+        assertThat(client.getMessageBody())
+                .contains(author.getName())
+                .contains(author1.getName());
+    }
+
+    @Test
+    void shouldAddBooks() throws IOException {
+        assertEquals(2, 3);
     }
 }

@@ -55,13 +55,4 @@ public class EditAuthorTest {
 
         return author;
     }
-
-    private Author exampleAuthor2() {
-        Author author = new Author();
-        author.setName("Tasti Miknuts");
-        author.setAge(64);
-        author.setBooks("Rick Rolled");
-
-        return author;
-    }
 }

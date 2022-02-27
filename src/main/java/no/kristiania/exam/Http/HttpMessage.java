@@ -2,6 +2,8 @@ package no.kristiania.exam.Http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,6 +12,7 @@ public class HttpMessage {
     public final Map<String, String> headerFields = new HashMap<>();
     public String messageBody;
     public String location;
+    public String requestBody;
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);
@@ -35,7 +38,7 @@ public class HttpMessage {
         for (int i = 0; i < contentLength; i++) {
             buffer.append((char)socket.getInputStream().read());
         }
-        return buffer.toString();
+        return URLDecoder.decode(buffer.toString(), StandardCharsets.UTF_8);
     }
 
     public static Map<String, String> parseRequestParameters(String query) {
@@ -66,7 +69,7 @@ public class HttpMessage {
         }
         int expectedNewline = socket.getInputStream().read();
         assert expectedNewline == '\n';
-        return buffer.toString();
+        return URLDecoder.decode(buffer.toString(), StandardCharsets.UTF_8);
     }
 
     public void write(Socket socket) throws IOException {
