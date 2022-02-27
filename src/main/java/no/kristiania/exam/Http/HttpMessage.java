@@ -2,6 +2,8 @@ package no.kristiania.exam.Http;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,6 +11,8 @@ public class HttpMessage {
     public String startLine;
     public final Map<String, String> headerFields = new HashMap<>();
     public String messageBody;
+    public String location;
+    public String requestBody;
 
     public HttpMessage(Socket socket) throws IOException {
         startLine = HttpMessage.readLine(socket);
@@ -23,6 +27,20 @@ public class HttpMessage {
         this.messageBody = messageBody;
     }
 
+    public HttpMessage(String startLine, String messageBody, String location){
+        this.messageBody = messageBody;
+        this.startLine = startLine;
+        this.location = location;
+    }
+
+    static String readBytes(Socket socket, int contentLength) throws IOException {
+        StringBuilder buffer = new StringBuilder();
+        for (int i = 0; i < contentLength; i++) {
+            buffer.append((char)socket.getInputStream().read());
+        }
+        return URLDecoder.decode(buffer.toString(), StandardCharsets.UTF_8);
+    }
+
     public static Map<String, String> parseRequestParameters(String query) {
         Map<String, String> queryMap = new HashMap<>();
         for (String queryParameter : query.split("&")) {
@@ -34,6 +52,7 @@ public class HttpMessage {
         return queryMap;
     }
 
+
     public int getContentLength() {
         return Integer.parseInt(getHeader("Content-Length"));
     }
@@ -42,12 +61,26 @@ public class HttpMessage {
         return headerFields.get(headerName);
     }
 
-    static String readBytes(Socket socket, int contentLength) throws IOException {
+    static String readLine(Socket socket) throws IOException {
         StringBuilder buffer = new StringBuilder();
-        for (int i = 0; i < contentLength; i++) {
-            buffer.append((char)socket.getInputStream().read());
+        int c;
+        while ((c = socket.getInputStream().read()) != '\r') {
+            buffer.append((char)c);
         }
-        return buffer.toString();
+        int expectedNewline = socket.getInputStream().read();
+        assert expectedNewline == '\n';
+        return URLDecoder.decode(buffer.toString(), StandardCharsets.UTF_8);
+    }
+
+    public void write(Socket socket) throws IOException {
+        String response = startLine + "\r\n" +
+                "Content-Length: " + messageBody.getBytes().length + "\r\n" +
+                "Connection: close\r\n" +
+                "Content-Type: text/html; charset=utf-8" + "\r\n" +
+                "Location: " + location + "\r\n" +
+                "\r\n" +
+                messageBody;
+        socket.getOutputStream().write(response.getBytes());
     }
 
     private void readHeaders(Socket socket) throws IOException {
@@ -59,26 +92,4 @@ public class HttpMessage {
             headerFields.put(headerField, headerValue);
         }
     }
-
-    static String readLine(Socket socket) throws IOException {
-        StringBuilder buffer = new StringBuilder();
-        int c;
-        while ((c = socket.getInputStream().read()) != '\r') {
-            buffer.append((char)c);
-        }
-        int expectedNewline = socket.getInputStream().read();
-        assert expectedNewline == '\n';
-        return buffer.toString();
-    }
-
-    public void write(Socket socket) throws IOException {
-        String response = startLine + "\r\n" +
-                "Content-Length: " + messageBody.getBytes().length + "\r\n" +
-                "Connection: close\r\n" +
-                "Content-Type: text/html; charset=utf-8" + "\r\n" +
-                "\r\n" +
-                messageBody;
-        socket.getOutputStream().write(response.getBytes());
-    }
-
 }

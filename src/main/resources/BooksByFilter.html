@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/api/booksFilter">
+    <p>Old author:</p> <input id="booksSelect" name="authorName" />
+    <button></button>
+</form>
+</body>
+<script>
+
+    fetch("/api/authorSelect")
+        .then(function (response) {
+            return response.text();
+        }).then(function (text) {
+        document.getElementById("booksSelect").innerHTML = text;
+    });
+
+</script>
+</html>
