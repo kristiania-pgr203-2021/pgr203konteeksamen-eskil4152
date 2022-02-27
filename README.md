@@ -10,7 +10,7 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 ## Andre linker: 
 * Github actions: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152/actions
 * Github classrooms/repository: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152
-* UML: ____
+* UML: documents/EnkelUML.puml
 
 ## Beskriv hvordan programmet skal testes:
 
