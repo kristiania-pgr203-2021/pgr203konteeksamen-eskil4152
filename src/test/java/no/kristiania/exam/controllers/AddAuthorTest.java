@@ -14,14 +14,14 @@ import java.sql.SQLException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class addAuthorTest {
+public class AddAuthorTest {
 
     private final AuthorDao authorDao = new AuthorDao(TestData.testDataSource());
 
     @Test
     void shouldSaveQuestion() throws SQLException, UnsupportedEncodingException {
         Author author = new Author();
-        String name = "Test Persson";
+        String name = "Test Perssån";
         int age = 20;
         author.setName(URLDecoder.decode(name, StandardCharsets.UTF_8.name()));
         author.setAge(age);

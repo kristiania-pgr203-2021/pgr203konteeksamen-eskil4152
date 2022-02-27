@@ -1,5 +1,6 @@
-package no.kristiania.exam.Controllers;
+package no.kristiania.exam.Controllers.Books;
 
+import no.kristiania.exam.Controllers.HttpControllerInterface;
 import no.kristiania.exam.Http.HttpMessage;
 import no.kristiania.exam.dao.BookDao;
 import no.kristiania.exam.Objects.Book;
