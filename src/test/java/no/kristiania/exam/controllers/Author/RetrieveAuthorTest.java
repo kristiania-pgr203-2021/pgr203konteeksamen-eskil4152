@@ -1,4 +1,4 @@
-package no.kristiania.exam.controllers;
+package no.kristiania.exam.controllers.Author;
 
 import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.TestData;
