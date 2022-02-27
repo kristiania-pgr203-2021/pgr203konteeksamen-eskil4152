@@ -8,7 +8,7 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 * https://github.com/kristiania-pgr203-2021/pgr203-innlevering-3-eskil4152
 
 ## Andre linker: 
-* Github actions: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152/actions
+* Github actions: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152/actions/runs/1906974546
 * Github classrooms/repository: https://github.com/kristiania-pgr203-2021/pgr203konteeksamen-eskil4152
 * UML: documents/EnkelUML.puml
 
