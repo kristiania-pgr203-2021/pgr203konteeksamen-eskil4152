@@ -126,15 +126,18 @@ public class BookDao extends AbstractDao<Book>{
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
                     "UPDATE books set book_name = (?) where book_name = (?);" +
+                            "UPDATE books set book_genre = (?) where book_name = (?);" +
                             "UPDATE books set book_description = (?) where book_name = (?); " +
                             "UPDATE books set book_author = (?) where book_name = (?);"
             )) {
                 statement.setString(1, book.getNewName());
                 statement.setString(2, book.getBookName());
-                statement.setString(3, book.getNewDesc());
+                statement.setString(3, book.getNewGenre());
                 statement.setString(4, book.getNewName());
-                statement.setString(5, book.getNewAuthor());
+                statement.setString(5, book.getNewDesc());
                 statement.setString(6, book.getNewName());
+                statement.setString(7, book.getNewAuthor());
+                statement.setString(8, book.getNewName());
 
                 statement.executeUpdate();
             }

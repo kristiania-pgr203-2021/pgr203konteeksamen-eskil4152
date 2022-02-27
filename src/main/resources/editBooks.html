@@ -10,7 +10,7 @@
         <label>New book title: <input id="new" type="text" name="newBookTitle" value=""></label>
         <label>New book genre: <input type="text" name="newBookGenre"></label>
         <label>New book description: <input type="text" name="newBookDescription"></label>
-        <label>New author: <input type="text" name="newBookAuthor"></label>
+        <label>New author: <select id="newAuthorSelect" name="newBookAuthor"></select></label>
         <button>Submit</button>
     </p>
 </form>
@@ -26,12 +26,12 @@
         document.getElementById("output").innerHTML = text;
     });
 
-    /*fetch("/api/booksAlter")
-    .then(function (res) {
-        return res.text();
-    }).then(function (text) {
-        document.getElementById("booksToAlter")
-    });*/
+    fetch("/api/authorSelect")
+        .then(function (response) {
+            return response.text();
+        }).then(function (text) {
+        document.getElementById("newAuthorSelect").innerHTML = text;
+    });
 
     fetch("/api/booksSelect")
     .then(function (response) {

@@ -1,9 +1,6 @@
 package no.kristiania.exam.Http;
 
-import no.kristiania.exam.Controllers.Author.AddAuthorController;
-import no.kristiania.exam.Controllers.Author.AuthorSelectController;
-import no.kristiania.exam.Controllers.Author.EditAuthorController;
-import no.kristiania.exam.Controllers.Author.GetAuthorsController;
+import no.kristiania.exam.Controllers.Author.*;
 import no.kristiania.exam.Controllers.Books.*;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
