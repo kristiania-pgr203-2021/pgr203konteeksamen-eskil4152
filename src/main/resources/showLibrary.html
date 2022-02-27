@@ -1,0 +1,24 @@
+<!DOCTYPE html> <html lang="en"> <head>
+    <meta charset="UTF-8"> <title>Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>Library</h1>
+<ul id="data"></ul>
+</div>
+</body>
+<script> fetch("/api/getAuthors")
+    .then(function(response) { return response.text();
+    }).then(function(text) { /*
+        Server should return html like this (for C-D):
+        <li>author name</li>
+        <li>author name</li>
+        ...
+        Server should return html like this (for A-B)
+        <li>author name <a href="books.html?authorId=id>[ books ]</a> <a href="editAuthor.ht
+        <li>author name <a href="books.html?authorId=id>[ books ]</a> <a href="editAuthor.ht
+        ...
+*/
+        document.getElementById("data").innerHTML = text;
+    });
+</script>

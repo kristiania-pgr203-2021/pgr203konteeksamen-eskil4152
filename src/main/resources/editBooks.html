@@ -1,0 +1,44 @@
+<!DOCTYPE html> <html lang="en"> <head>
+    <meta charset="UTF-8">
+    <title>See all books</title> <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<h1>See all books</h1>
+<form method="POST" action="/api/alterBook">
+    <p>
+        <label>Old book: <select id="booksSelect" name="bookTitle"></select></label>
+        <label>New book title: <input id="new" type="text" name="newBookTitle" value=""></label>
+        <label>New book genre: <input type="text" name="newBookGenre"></label>
+        <label>New book description: <input type="text" name="newBookDescription"></label>
+        <label>New author: <select id="newAuthorSelect" name="newBookAuthor"></select></label>
+        <button>Submit</button>
+    </p>
+</form>
+
+<div id="output"></div>
+
+</body>
+<script>
+    fetch("/api/getBooks")
+        .then(function(response) {
+            return response.text();
+        }).then(function (text) {
+        document.getElementById("output").innerHTML = text;
+    });
+
+    fetch("/api/authorSelect")
+        .then(function (response) {
+            return response.text();
+        }).then(function (text) {
+        document.getElementById("newAuthorSelect").innerHTML = text;
+    });
+
+    fetch("/api/booksSelect")
+    .then(function (response) {
+        return response.text();
+    }).then(function (text) {
+        document.getElementById("booksSelect").innerHTML = text;
+    });
+
+</script>
+</html>
