@@ -16,11 +16,14 @@ pgr203konteeksamen-eskil4152 created by GitHub Classroom
 
 ### Testing
 * Når du skal teste om serveren kjører går vi først til `localhost:8080`. Deretter tester vi følgende:
-  * 
-  * 
-  * 
-  * 
-  * 
+  * Gå til localhost:1962
+  * Se alle forfattere
+  * Legg til bok på en forfatter
+  * Vise alle bøker
+  * Endre en forfatter
+  * Endre en bok
+  * Legge til enda en forfatter på en bok
+  * Filtrere bøker etter en forfatter
 
 ## Dokumentasjon av bygging og kjøring via CMD
 * For å komme i gang starter vi med å kjøre en maven Clean. Dette kan gjøres gjennom Maven baren til høyre, under Lifcycle og så velge clean eller i terminal med "mvn clean". Dette gjøres for å forsikre oss om at rester etter tidligere programkjøringer blir borte.
@@ -42,9 +45,9 @@ Vi bør a få en build success og fått en JAR fil vi kan eksekvere til en egen 
 * [x] Brukeren kan legge til bøker på en forfatter
 * [x] Bruker kan liste ut alle bøker
 * [x] Bruker kan liste ut alle bøker pr forfatter
-* [ ] Vise redigeringsskjermbilde for forfatter?
+* [x] Vise redigeringsskjermbilde for forfatter?
 * [x] Bruker kan endre navn på forfatter
-* [ ] Vise redigeringsskjermbilde for bøker?
+* [x] Vise redigeringsskjermbilde for bøker?
 * [x] Bruker kan endre navn på bok
 * [x] Bruker kan endre beskrivelse på bok
 * [x] Brukeren kan legge til flere forfattere pr bok
@@ -66,3 +69,4 @@ Når du filtrerer bøker etter forfatter, eller printer alle forfattere vil den 
 Vi har også en EmptyTargetController, som er laget på en ganske enkel måte. Det er en kontroller i serveren som reagerer på "/", da vi den gå til kontrollen som kun returnerer en 303 til /index.html. 
 
 ## UML
+![UMLPain](https://user-images.githubusercontent.com/10678081/155895174-1732bf97-b4f0-4bcd-9505-0841164e9ef1.jpeg)
