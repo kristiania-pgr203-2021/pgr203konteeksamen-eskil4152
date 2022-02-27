@@ -18,12 +18,11 @@ import java.util.Properties;
 public class MainServer {
 
     public static final Logger logger = LoggerFactory.getLogger(HttpServer.class);
-    private static DataSource dataSource;
 
     public static void main(String[] args) throws IOException {
         HttpServer httpServer = new HttpServer(1962);
 
-        dataSource = createDataSource();
+        DataSource dataSource = createDataSource();
         AuthorDao authorDao = new AuthorDao(dataSource);
         BookDao bookDao = new BookDao(dataSource);
 
@@ -61,9 +60,4 @@ public class MainServer {
         Flyway.configure().dataSource(dataSource).load().migrate();
         return dataSource;
     }
-
-    public static DataSource getDataSource() {
-        return dataSource;
-    }
-
 }

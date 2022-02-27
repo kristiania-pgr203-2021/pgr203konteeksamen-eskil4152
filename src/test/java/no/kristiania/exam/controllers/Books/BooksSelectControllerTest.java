@@ -1,17 +1,14 @@
 package no.kristiania.exam.controllers.Books;
 
-import no.kristiania.exam.Controllers.Author.AuthorSelectController;
 import no.kristiania.exam.Controllers.Books.BooksSelectController;
 import no.kristiania.exam.Http.HttpClient;
 import no.kristiania.exam.Http.HttpServer;
-import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.BookDao;
 import org.assertj.core.api.Fail;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-
 
 import java.io.IOException;
 import java.sql.SQLException;

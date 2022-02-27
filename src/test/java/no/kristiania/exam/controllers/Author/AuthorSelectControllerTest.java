@@ -1,12 +1,9 @@
 package no.kristiania.exam.controllers.Author;
 
 import no.kristiania.exam.Controllers.Author.AuthorSelectController;
-import no.kristiania.exam.Controllers.Books.BooksSelectController;
 import no.kristiania.exam.Http.HttpClient;
-import no.kristiania.exam.Http.HttpMessage;
 import no.kristiania.exam.Http.HttpServer;
 import no.kristiania.exam.Objects.Author;
-import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.AuthorDao;
 import org.assertj.core.api.Fail;
@@ -29,13 +26,8 @@ public class AuthorSelectControllerTest {
     @Test
     void shouldListAuthorsInASelect() throws SQLException, IOException {
         Author author = exampleAuthor();
-        author.getName();
-
         Author author2 = exampleAuthor2();
-        author2.getName();
-
         Author author3 = exampleAuthor3();
-        author3.getName();
 
         authorDao.save(author);
         authorDao.save(author2);

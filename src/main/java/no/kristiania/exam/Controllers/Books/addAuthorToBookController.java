@@ -2,7 +2,6 @@ package no.kristiania.exam.Controllers.Books;
 
 import no.kristiania.exam.Controllers.HttpControllerInterface;
 import no.kristiania.exam.Http.HttpMessage;
-import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
@@ -14,8 +13,8 @@ import java.sql.SQLException;
 import java.util.Map;
 
 public class addAuthorToBookController implements HttpControllerInterface {
-    private AuthorDao authorDao;
-    private BookDao bookDao;
+    private final AuthorDao authorDao;
+    private final BookDao bookDao;
 
     public addAuthorToBookController(AuthorDao authorDao, BookDao bookDao) {
         this.authorDao = authorDao;

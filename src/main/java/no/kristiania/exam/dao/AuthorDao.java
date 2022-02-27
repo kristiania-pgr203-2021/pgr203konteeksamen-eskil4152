@@ -1,43 +1,19 @@
 package no.kristiania.exam.dao;
 
 import no.kristiania.exam.Objects.Author;
-import no.kristiania.exam.Objects.Book;
 
 import javax.sql.DataSource;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class AuthorDao extends AbstractDao<Author>{
+public class AuthorDao {
 
-    private final String retrieveByAuthorId = "select * from authors where id = ?";
-    private final String retrieveAllA = "select * from authors";
+    private final DataSource dataSource;
 
     public AuthorDao(DataSource dataSource) {
-        super(dataSource);
+        this.dataSource = dataSource;
     }
-
-    @Override
-    public String getSaveBookToAuth() {
-        return null;
-    }
-
-    @Override
-    public String getRetrieveByBookIdString() {
-        return null;
-    }
-
-    @Override
-    public String getRetrieveAllFromAuth() {
-        return null;
-    }
-
-    @Override
-    public String getUpdateBookInAuth() {
-        return null;
-    }
-
 
     public void save(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -75,25 +51,6 @@ public class AuthorDao extends AbstractDao<Author>{
         }
     }
 
-    public List<Author> listBooksFiltered(Author author) throws SQLException {
-        try(Connection connection = dataSource.getConnection()) {
-            try(PreparedStatement statement = connection.prepareStatement(
-                    "select book_name from books where book_author LIKE '%' || (?) || '%'"
-            )) {
-                statement.setString(1, author.getName());
-                statement.executeUpdate();
-
-                try (ResultSet rs = statement.executeQuery()){
-                    ArrayList<Author> books = new ArrayList<>();
-                    while (rs.next()){
-                        books.add(mapFiltered(rs));
-                    }
-                    return books;
-                }
-            }
-        }
-    }
-
     public void alter(Author author) throws SQLException {
         try(Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
@@ -110,20 +67,6 @@ public class AuthorDao extends AbstractDao<Author>{
         }
     }
 
-    public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getName());
-        statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
-    }
-
-    public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getName());
-        statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
-        //statement.setLong(4, author.getId());
-    }
-
-    @Override
     public Author mapFromResultSet(ResultSet rs) throws SQLException {
         Author author = new Author();
         author.setId(rs.getLong("author_id"));
@@ -133,10 +76,5 @@ public class AuthorDao extends AbstractDao<Author>{
         return author;
     }
 
-    public Author mapFiltered(ResultSet rs) throws SQLException {
-        Author author = new Author();
-        author.setBooks(rs.getString("author_books"));
-        return author;
-    }
 }
 

@@ -1,18 +1,23 @@
 package no.kristiania.exam.Objects;
 
-import no.kristiania.exam.dao.model.AbstractModel;
 
-import java.sql.Array;
-import java.util.List;
+public class Author {
 
-public class Author extends AbstractModel {
-
+    private long id;
     private String name;
     private int age;
     private String books;
     private String newName;
     private int newAge;
     private String newBooks;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getBooks() {
         return books;
