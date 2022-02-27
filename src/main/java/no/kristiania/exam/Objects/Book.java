@@ -1,8 +1,6 @@
 package no.kristiania.exam.Objects;
 
-import no.kristiania.exam.dao.model.AbstractModel;
-
-public class Book extends AbstractModel {
+public class Book {
     private String bookName;
     private String bookDesc;
     private String bookGenre;

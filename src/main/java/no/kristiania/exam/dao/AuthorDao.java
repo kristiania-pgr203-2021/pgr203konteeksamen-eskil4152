@@ -7,32 +7,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AuthorDao extends AbstractDao<Author>{
+public class AuthorDao {
+
+    private final DataSource dataSource;
 
     public AuthorDao(DataSource dataSource) {
-        super(dataSource);
+        this.dataSource = dataSource;
     }
-
-    @Override
-    public String getSaveBookToAuth() {
-        return null;
-    }
-
-    @Override
-    public String getRetrieveByBookIdString() {
-        return null;
-    }
-
-    @Override
-    public String getRetrieveAllFromAuth() {
-        return null;
-    }
-
-    @Override
-    public String getUpdateBookInAuth() {
-        return null;
-    }
-
 
     public void save(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
@@ -86,19 +67,6 @@ public class AuthorDao extends AbstractDao<Author>{
         }
     }
 
-    public void setSaveColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getName());
-        statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
-    }
-
-    public void setUpdateColumns(Author author, PreparedStatement statement) throws SQLException {
-        statement.setString(1, author.getName());
-        statement.setInt(2, author.getAge());
-        statement.setString(3, author.getBooks());
-    }
-
-    @Override
     public Author mapFromResultSet(ResultSet rs) throws SQLException {
         Author author = new Author();
         author.setId(rs.getLong("author_id"));
