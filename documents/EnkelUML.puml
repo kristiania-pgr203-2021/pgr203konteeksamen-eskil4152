@@ -1,0 +1,60 @@
+@startuml
+participant Browser
+
+box Java server
+
+participant HttpServer
+participant index.html
+participant controllers
+participant AuthorControllers
+participant BookControllers
+participant Dao
+participant AuthorDao
+participant BookDao
+
+end box
+
+database PostgreSQL
+
+Browser -> HttpServer: Send request to server and recieve info if server is runnning and access
+HttpServer -> index.html: Server retieves files to display
+index.html -> controllers: Controllers fetches code
+controllers -> Daos: access data
+note right of index.html: Reads form parameters from request body and directs browser accordingly depending on requested api.
+
+Browser -> HttpServer: index.html
+Browser <- HttpServer: HTTP/1.1 200 OK
+HttpServer -> index.html: "direct to index.html"
+HttpServer <- index.html: HTTP/1.1 200 OK
+Browser <- HttpServer: Display index.html
+
+Browser -> HttpServer: addAuthors.html
+HttpServer -> AuthorControllers: get"/api/createAuthor"
+HttpServer <- AuthorControllers: createAuthor.html
+Browser <- HttpServer: 200 OK
+Browser -> HttpServer: post "/api/createAuthor"
+HttpServer -> AuthorControllers: post: "/api/createAuthor"
+HttpServer -> AuthorControllers: Insert to db
+AuthorControllers -> AuthorDao: Accesss db
+AuthorDao -> PostgreSQL: Insert to table
+AuthorDao <- PostgreSQL: Success
+AuthorControllers <- AuthorDao: Success
+HttpServer <- AuthorControllers: 200 OK
+Browser <- HttpServer: 200 OK
+
+Browser -> HttpServer: showLibrary.html
+HttpServer -> AuthorControllers: get"/api/getAuthors"
+HttpServer -> BookControllers: get"/api/getBooks
+AuthorControllers -> AuthorDao: get author table info
+AuthorDao -> PostgreSQL: retrieve author table info
+AuthorDao <- PostgreSQL: send back author data
+AuthorControllers <- AuthorDao: display authors
+BookControllers -> BookDao: get book table info
+BookDao -> PostgreSQL: retrieve book table info
+BookDao <- PostgreSQL: send back book data
+BookControllers <- BookDao: get book table info
+HttpServer <- AuthorControllers: Display author info
+HttpServer <- BookControllers: Display book info
+HttpServer <- Browser: 200 OK
+
+@enduml
