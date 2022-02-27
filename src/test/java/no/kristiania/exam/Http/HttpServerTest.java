@@ -1,13 +1,20 @@
 package no.kristiania.exam.Http;
 
+import no.kristiania.exam.Controllers.Author.AuthorSelectController;
 import no.kristiania.exam.Controllers.Author.GetAuthorsController;
 import no.kristiania.exam.Controllers.Books.AddBookController;
 import no.kristiania.exam.Controllers.Books.BooksSelectController;
+import no.kristiania.exam.Controllers.Books.GetBooksController;
+import no.kristiania.exam.Controllers.EmptyTargetController;
 import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.AuthorDao;
 import no.kristiania.exam.dao.BookDao;
+import org.assertj.core.api.Fail;
+import org.checkerframework.checker.units.qual.A;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -85,7 +92,16 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldListAsSelect() throws IOException, SQLException {
+    void shouldReturnIndex() throws IOException {
+        server.addController("/", new EmptyTargetController());
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/");
+
+        assertThat(client.getMessageBody())
+                .contains("Redirecting to index");
+    }
+
+    @Test
+    void shouldListBooksAsSelect() throws IOException, SQLException {
         BookDao bookDao = new BookDao(TestData.testDataSource());
 
         Book book = new Book();
@@ -112,7 +128,29 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldListAuthors() throws SQLException, IOException {
+    void shouldGetBooks() throws SQLException, IOException {
+        BookDao bookDao = new BookDao(TestData.testDataSource());
+
+        Book book = new Book();
+        book.setBookName("Book");
+
+        Book book1 = new Book();
+        book1.setBookName("Book 1");
+
+        bookDao.saveForTest(book);
+        bookDao.saveForTest(book1);
+
+        server.addController("/api/getBooks", new GetBooksController(bookDao));
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/getBooks");
+
+        assertThat(client.getMessageBody())
+                .contains(book.getBookName())
+                .contains(book1.getBookName());
+    }
+
+    @Test
+    void shouldGetAuthors() throws SQLException, IOException {
         AuthorDao authorDao = new AuthorDao(TestData.testDataSource());
         BookDao bookDao = new BookDao(TestData.testDataSource());
 
@@ -135,7 +173,36 @@ public class HttpServerTest {
     }
 
     @Test
-    void shouldAddBooks() throws IOException {
-        assertEquals(2, 3);
+    void ListAuthorsAsSelect() throws IOException, SQLException {
+        AuthorDao authorDao = new AuthorDao(TestData.testDataSource());
+
+        Author author = new Author();
+        author.setName("Author one");
+
+        Author author1 = new Author();
+        author1.setName("Author two");
+
+        authorDao.save(author);
+        authorDao.save(author1);
+
+        server.addController("/api/authorSelect", new AuthorSelectController(authorDao));
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/authorSelect");
+
+        assertEquals(
+                // Had to add value 0-2 as other people than test, as V003 adds three people to table when table is created
+                "<option value=0>Lars Bjornbak</option><option value=1>Benedict Cumberbatch</option><option value=2>Batman the First</option>" +
+                        "<option value=3>Author one</option><option value=4>Author two</option>",
+                client.getMessageBody()
+        );
+    }
+
+    @AfterEach
+    public void clean(){
+        try {
+            TestData.cleanDataSource(TestData.testDataSource());
+        } catch (Exception e) {
+            Fail.fail(e.getMessage());
+        }
     }
 }

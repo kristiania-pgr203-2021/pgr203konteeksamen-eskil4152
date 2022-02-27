@@ -38,15 +38,6 @@ public class EditAuthorTest {
         );
     }
 
-    @AfterAll
-    public static void clean(){
-        try {
-            TestData.cleanDataSource(TestData.testDataSource());
-        } catch (Exception e) {
-            Fail.fail(e.getMessage());
-        }
-    }
-
     private Author exampleAuthor() {
         Author author = new Author();
         author.setName("Howsa Mibals");
@@ -54,5 +45,14 @@ public class EditAuthorTest {
         author.setBooks("hah, gottem");
 
         return author;
+    }
+
+    @AfterAll
+    public static void clean(){
+        try {
+            TestData.cleanDataSource(TestData.testDataSource());
+        } catch (Exception e) {
+            Fail.fail(e.getMessage());
+        }
     }
 }

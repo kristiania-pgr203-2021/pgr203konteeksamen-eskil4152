@@ -1,8 +1,10 @@
 package no.kristiania.exam.controllers.Books;
 
+import no.kristiania.exam.Controllers.Author.AuthorSelectController;
 import no.kristiania.exam.Controllers.Books.BooksSelectController;
 import no.kristiania.exam.Http.HttpClient;
 import no.kristiania.exam.Http.HttpServer;
+import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.Objects.Book;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.BookDao;
@@ -26,7 +28,23 @@ public class BooksSelectControllerTest  {
 
     @Test
     void shouldListBooksInASelect() throws SQLException, IOException {
-        assertEquals(2, 3);
+        Book book = new Book();
+        book.setBookName("Book one");
+
+        Book book1 = new Book();
+        book1.setBookName("Book two");
+
+        bookDao.saveForTest(book);
+        bookDao.saveForTest(book1);
+
+        server.addController("/api/booksSelect", new BooksSelectController(bookDao));
+
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/api/booksSelect");
+
+        assertEquals(
+                "<option value=0>Book one</option><option value=1>Book two</option>",
+                client.getMessageBody()
+        );
     }
 
     @AfterAll

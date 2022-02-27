@@ -74,7 +74,7 @@ public class HttpServer {
 
             String responseText = "File not found: " + requestTarget;
 
-            String response = "HTTP/1.1 404 Not found\r\n" +
+            String response = "HTTP/1.1 404 tet found\r\n" +
                     "Content-Length: " + responseText.length() + "\r\n" +
                     "Connection: close\r\n" +
                     "\r\n" +

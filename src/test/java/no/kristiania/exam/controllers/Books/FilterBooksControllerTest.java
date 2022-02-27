@@ -32,6 +32,9 @@ public class FilterBooksControllerTest {
     }
 
     @Disabled
+
+    //We were not able to make a query to find author
+
     void shouldFilterBooks() throws SQLException, IOException {
         Book book = new Book();
         book.setBookName("How to write Java");
@@ -54,8 +57,6 @@ public class FilterBooksControllerTest {
         bookDao.saveForTest(book);
         //bookDao.saveForTest(book1);
         //bookDao.saveForTest(book2);
-
-        String query = "?";
 
         server.addController("/api/booksFilter", new FilterBooksController(bookDao, authorDao));
 
