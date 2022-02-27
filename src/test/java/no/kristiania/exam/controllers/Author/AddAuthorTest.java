@@ -28,8 +28,9 @@ public class AddAuthorTest {
         authorDao.save(author);
 
         Assertions.assertAll(
-                () -> assertEquals(author.getAge(), age),
-                () -> assertEquals(author.getName(), name)
+                //Checking author in position 2 as three authors are being added from the .sql files
+                () -> assertEquals(authorDao.listAll().get(2).getAge(), age),
+                () -> assertEquals(authorDao.listAll().get(2).getName(), name)
         );
     }
 

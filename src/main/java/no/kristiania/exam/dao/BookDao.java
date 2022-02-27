@@ -87,6 +87,21 @@ public class BookDao extends AbstractDao<Book>{
         }
     }
 
+    public void saveForTest (Book book) throws SQLException {
+        try (Connection connection = dataSource.getConnection()) {
+            try(PreparedStatement statement = connection.prepareStatement(
+                    "insert into books (book_name, book_genre, book_description, book_author) VALUES (?, ?, ?, ?);"
+            )) {
+                statement.setString(1, book.getBookName());
+                statement.setString(2, book.getBookGenre());
+                statement.setString(3, book.getBookDesc());
+                statement.setString(4, book.getBook_authors());
+
+                statement.execute();
+            }
+        }
+    }
+
     public List<Book> booksByAuthor(Author author) throws SQLException {
         try (Connection connection = dataSource.getConnection()) {
             try(PreparedStatement statement = connection.prepareStatement(
@@ -105,21 +120,6 @@ public class BookDao extends AbstractDao<Book>{
                 }
             }
         }
-    }
-
-    private Book readResultSet(ResultSet rs) throws SQLException {
-        Book book = new Book();
-        book.setBookName(rs.getString("book_name"));
-        book.setBookGenre(rs.getString("book_genre"));
-        book.setBookDesc(rs.getString("book_description"));
-        book.setBook_authors(rs.getString("book_author"));
-        return book;
-    }
-
-    private Book read(ResultSet rs) throws SQLException {
-        Book b = new Book();
-        b.setBookName(rs.getString("book_name"));
-        return b;
     }
 
     public void alter(Book book) throws SQLException {
@@ -152,5 +152,20 @@ public class BookDao extends AbstractDao<Book>{
                 statement.executeUpdate();
             }
         }
+    }
+
+    private Book read(ResultSet rs) throws SQLException {
+        Book b = new Book();
+        b.setBookName(rs.getString("book_name"));
+        return b;
+    }
+
+    private Book readResultSet(ResultSet rs) throws SQLException {
+        Book book = new Book();
+        book.setBookName(rs.getString("book_name"));
+        book.setBookGenre(rs.getString("book_genre"));
+        book.setBookDesc(rs.getString("book_description"));
+        book.setBook_authors(rs.getString("book_author"));
+        return book;
     }
 }
