@@ -4,6 +4,8 @@ package no.kristiania.exam.controllers.Author;
 import no.kristiania.exam.Objects.Author;
 import no.kristiania.exam.TestData;
 import no.kristiania.exam.dao.AuthorDao;
+import org.assertj.core.api.Fail;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +21,7 @@ public class AddAuthorTest {
     private final AuthorDao authorDao = new AuthorDao(TestData.testDataSource());
 
     @Test
-    void shouldSaveQuestion() throws SQLException, UnsupportedEncodingException {
+    void shouldSaveAuthor() throws SQLException, UnsupportedEncodingException {
         Author author = new Author();
         String name = "Test Perssån";
         int age = 20;
@@ -29,10 +31,18 @@ public class AddAuthorTest {
 
         Assertions.assertAll(
                 //Checking author in position 2 as three authors are being added from the .sql files
-                () -> assertEquals(authorDao.listAll().get(2).getAge(), age),
-                () -> assertEquals(authorDao.listAll().get(2).getName(), name)
+                () -> assertEquals(authorDao.listAll().get(3).getName(), name),
+                            () -> assertEquals(authorDao.listAll().get(3).getAge(), age)
         );
     }
 
+    @AfterAll
+    public static void clean(){
+        try {
+            TestData.cleanDataSource(TestData.testDataSource());
+        } catch (Exception e) {
+            Fail.fail(e.getMessage());
+        }
+    }
 }
 

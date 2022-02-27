@@ -29,7 +29,7 @@ public class HttpServerTest {
 
     @Test
     void shouldReturn200() throws IOException {
-        HttpClient client = new HttpClient("localhost", server.getPort(), "/preIndex.html");
+        HttpClient client = new HttpClient("localhost", server.getPort(), "/index.html");
         assertEquals(200, client.getStatusCode());
     }
 
